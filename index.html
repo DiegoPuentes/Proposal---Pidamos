@@ -3,795 +3,792 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pidamos — Marketing Latinoamérica</title>
+<title>Pidamos · Jaquematte — Marketing Latinoamérica</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-/* ─── TOKENS ─────────────────────────────────────── */
 :root {
-  --ink:    #0d0d0b;
-  --paper:  #f5f2ec;
-  --accent: #c8a96e;
-  --muted:  #8a8880;
-  --line:   rgba(13,13,11,0.11);
-  --serif:  'Cormorant Garamond', Georgia, serif;
-  --sans:   'DM Sans', sans-serif;
-  --nav-h:  60px;
+  --nav-h: 60px;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'DM Sans', sans-serif;
+  --a-ink:#0d0d0b; --a-paper:#f5f2ec; --a-accent:#c8a96e; --a-muted:#8a8880; --a-line:rgba(13,13,11,0.11);
+  --b-ink:#0a0a14; --b-paper:#f0f0f8; --b-accent:#4f46e5; --b-muted:#7878a0; --b-line:rgba(10,10,20,0.11);
+  --ink:var(--a-ink); --paper:var(--a-paper); --accent:var(--a-accent); --muted:var(--a-muted); --line:var(--a-line);
 }
+body { background:var(--paper); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; transition:background .5s,color .5s; }
+body.brand-b { --ink:var(--b-ink); --paper:var(--b-paper); --accent:var(--b-accent); --muted:var(--b-muted); --line:var(--b-line); }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+::selection{background:var(--accent);color:var(--paper);}
+::-webkit-scrollbar{width:3px;} ::-webkit-scrollbar-thumb{background:var(--accent);}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 15px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-::selection { background: var(--accent); color: var(--paper); }
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-thumb { background: var(--accent); }
-
-/* ─── NAVBAR ─────────────────────────────────────── */
+/* ── NAV ── */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: var(--nav-h);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 20px;
-  background: rgba(245,242,236,.96);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
-  transition: box-shadow .3s;
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  height:var(--nav-h);
+  display:grid; grid-template-columns:auto 1fr auto auto;
+  align-items:center; gap:20px;
+  padding:0 20px;
+  background:rgba(245,242,236,.97);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  transition:box-shadow .3s, background .5s;
 }
-.nav.scrolled { box-shadow: 0 2px 20px rgba(13,13,11,.06); }
-.nav-logo {
-  font-family: var(--serif); font-size: 21px; font-weight: 600;
-  color: var(--ink); text-decoration: none; letter-spacing: .02em;
-  flex-shrink: 0;
-}
-.nav-logo b { color: var(--accent); font-weight: 600; }
+body.brand-b .nav{background:rgba(240,240,248,.97);}
+.nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06);}
 
-/* desktop links — hidden on mobile */
-.nav-links {
-  display: none;
-  gap: 28px; list-style: none;
-}
-.nav-links a {
-  font-size: 10.5px; letter-spacing: .11em; text-transform: uppercase;
-  color: var(--muted); text-decoration: none; font-weight: 500;
-  transition: color .2s; white-space: nowrap;
-}
-.nav-links a:hover { color: var(--ink); }
+.brand-switcher{display:flex;align-items:center;border:1px solid var(--line);border-radius:100px;overflow:hidden;flex-shrink:0;}
+.brand-btn{padding:5px 12px;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-family:var(--sans);border:none;cursor:pointer;background:transparent;color:var(--muted);transition:background .3s,color .3s;white-space:nowrap;}
+.brand-btn.active{background:var(--ink);color:var(--paper);}
 
-/* CTA pill — shown on desktop */
-.nav-cta {
-  display: none;
-  font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
-  font-weight: 500; color: var(--ink); text-decoration: none;
-  border-bottom: 1px solid var(--accent); padding-bottom: 1px;
-  white-space: nowrap; transition: color .2s;
-}
-.nav-cta:hover { color: var(--accent); }
+.nav-links{display:none;gap:22px;list-style:none;justify-content:center;}
+.nav-links a{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:500;transition:color .2s;white-space:nowrap;}
+.nav-links a:hover{color:var(--ink);}
 
-/* hamburger — shown on mobile */
-.nav-hamburger {
-  display: flex; flex-direction: column; gap: 5px;
-  background: none; border: none; cursor: pointer; padding: 4px;
-}
-.nav-hamburger span {
-  display: block; width: 22px; height: 1.5px;
-  background: var(--ink); transition: transform .25s, opacity .25s;
-}
-.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.nav-hamburger.open span:nth-child(2) { opacity: 0; }
-.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.nav-cta{display:none;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px;white-space:nowrap;transition:color .2s;}
+.nav-cta:hover{color:var(--accent);}
 
-/* mobile drawer */
-.nav-drawer {
-  display: none;
-  position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 199;
-  background: rgba(245,242,236,.98);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
-  flex-direction: column; padding: 24px 20px 28px;
-  gap: 4px;
-}
-.nav-drawer.open { display: flex; }
-.nav-drawer a {
-  font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--muted); text-decoration: none; font-weight: 500;
-  padding: 11px 0; border-bottom: 1px solid var(--line);
-  transition: color .2s;
-}
-.nav-drawer a:last-child { border-bottom: none; color: var(--ink); }
-.nav-drawer a:hover { color: var(--ink); }
+.nav-hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;justify-self:end;}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:transform .25s,opacity .25s;}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
 
-/* ─── HERO ────────────────────────────────────────── */
-.hero {
-  margin-top: var(--nav-h);
-}
+.nav-drawer{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:199;background:rgba(245,242,236,.98);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);flex-direction:column;padding:24px 20px 28px;gap:4px;}
+body.brand-b .nav-drawer{background:rgba(240,240,248,.98);}
+.nav-drawer.open{display:flex;}
+.nav-drawer a{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:500;padding:11px 0;border-bottom:1px solid var(--line);transition:color .2s;}
+.nav-drawer a:last-child{border-bottom:none;color:var(--ink);}
 
-/* IMAGE — full width, fixed height */
-.hero-img {
-  width: 100%; height: 62vw;
-  min-height: 220px; max-height: 380px;
-  overflow: hidden; position: relative;
-  background: #d8d4cc; /* fallback while loading */
-}
-.hero-img img {
-  width: 100%; height: 100%; object-fit: cover;
-  display: block;
-  filter: sepia(.1) contrast(1.03);
-}
-.hero-img-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 50%, rgba(13,13,11,.18) 100%);
-}
-.hero-badge {
-  position: absolute; bottom: 16px; right: 16px;
-  background: var(--paper); padding: 12px 16px;
-}
-.hero-badge-num {
-  font-family: var(--serif); font-size: 34px; font-weight: 300; line-height: 1; color: var(--ink);
-}
-.hero-badge-num i { font-style: italic; color: var(--accent); }
-.hero-badge-label { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+/* ── BRAND PAGES ── */
+.brand-page{display:none;}
+.brand-page.active{display:block;}
 
-/* TEXT BLOCK */
-.hero-body {
-  padding: 40px 20px 52px;
-}
-.hero-eyebrow {
-  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--accent); font-weight: 500; margin-bottom: 16px;
-}
-.hero-title {
-  font-family: var(--serif); font-size: clamp(46px, 13vw, 88px);
-  font-weight: 300; line-height: .98; letter-spacing: -.01em;
-  margin-bottom: 22px;
-}
-.hero-title i { font-style: italic; color: var(--accent); }
-.hero-desc {
-  font-size: 14px; color: var(--muted); line-height: 1.8;
-  margin-bottom: 32px; max-width: 480px;
-}
-.hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 9px;
-  font-family: var(--sans); font-size: 10.5px;
-  letter-spacing: .13em; text-transform: uppercase; font-weight: 500;
-  text-decoration: none; transition: all .22s; cursor: pointer; border: none;
-}
-.btn-fill {
-  background: var(--ink); color: var(--paper); padding: 14px 24px;
-}
-.btn-fill:hover { background: var(--accent); }
-.btn-text {
-  color: var(--muted); padding: 2px 0; border-bottom: 1px solid transparent;
-}
-.btn-text:hover { color: var(--ink); border-color: var(--line); }
-.btn svg { flex-shrink: 0; transition: transform .2s; }
-.btn:hover svg { transform: translateX(3px); }
+/* ── HERO ── */
+.hero{margin-top:var(--nav-h);}
+.hero-visual{width:100%;height:62vw;min-height:240px;max-height:400px;position:relative;overflow:hidden;}
+.vis-panel{position:absolute;inset:0;}
+.vis-pidamos{background:linear-gradient(160deg,#1a2744 0%,#2d1b0e 40%,#0d0d0b 100%);}
+.vis-pidamos::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 30%,rgba(200,169,110,.22) 0%,transparent 60%);}
+.vis-pidamos::after{content:'';position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(to top,rgba(13,13,11,.85) 0%,transparent 100%);}
+.vis-jaquematte{background:linear-gradient(155deg,#0a0a24 0%,#1a1a5c 35%,#2d2d8a 65%,#0a0a14 100%);}
+.vis-jaquematte::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 30%,rgba(79,70,229,.35) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 20% 70%,rgba(79,70,229,.15) 0%,transparent 55%);}
+.vis-jaquematte::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(79,70,229,.06) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(79,70,229,.06) 40px);}
 
-/* ─── TICKER ─────────────────────────────────────── */
-.ticker {
-  background: var(--ink); overflow: hidden;
-  padding: 13px 0; border-top: 1px solid rgba(255,255,255,.05);
-}
-.ticker-track {
-  display: flex; width: max-content;
-  animation: ticker-scroll 24s linear infinite;
-}
-.ticker-item {
-  display: flex; align-items: center; gap: 20px;
-  padding: 0 36px; white-space: nowrap;
-  font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
-  font-weight: 500; color: rgba(245,242,236,.45);
-}
-.ticker-item s { color: var(--accent); text-decoration: none; }
-.ticker-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.hero-badge{position:absolute;bottom:16px;right:16px;z-index:2;background:var(--paper);padding:12px 16px;transition:background .5s;}
+.hero-badge-num{font-family:var(--serif);font-size:34px;font-weight:300;line-height:1;color:var(--ink);}
+.hero-badge-num i{font-style:italic;color:var(--accent);}
+.hero-badge-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+.hero-body{padding:40px 20px 52px;}
+.hero-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:16px;}
+.hero-title{font-family:var(--serif);font-size:clamp(46px,7vw,108px);font-weight:300;line-height:.96;letter-spacing:-.02em;margin-bottom:22px;color:var(--ink);overflow:hidden;}
+.hero-title i{font-style:italic;color:var(--accent);}
+.hero-desc{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:32px;max-width:480px;}
+.hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--sans);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:500;text-decoration:none;transition:all .22s;cursor:pointer;border:none;}
+.btn-fill{background:var(--ink);color:var(--paper);padding:14px 24px;}
+.btn-fill:hover{background:var(--accent);}
+.btn-text{color:var(--muted);padding:2px 0;border-bottom:1px solid transparent;}
+.btn-text:hover{color:var(--ink);border-color:var(--line);}
+.btn svg{flex-shrink:0;transition:transform .2s;}
+.btn:hover svg{transform:translateX(3px);}
 
-/* ─── STATS ──────────────────────────────────────── */
-.stats {
-  display: grid; grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid var(--line);
-}
-.stat {
-  padding: 36px 20px; border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.stat:nth-child(2n) { border-right: none; }
-.stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
-.stat-num {
-  font-family: var(--serif); font-size: clamp(44px, 11vw, 62px);
-  font-weight: 300; line-height: 1;
-}
-.stat-num sup { font-size: .38em; color: var(--accent); vertical-align: super; }
-.stat-label { font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+/* ── TICKER ── */
+.ticker{overflow:hidden;padding:13px 0;}
+.ticker-a{background:#0d0d0b;}
+.ticker-b{background:#0a0a24;}
+.ticker-track{display:flex;width:max-content;animation:ticker-scroll 24s linear infinite;}
+.ticker-item{display:flex;align-items:center;gap:20px;padding:0 36px;white-space:nowrap;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:500;color:rgba(255,255,255,.4);}
+.ticker-item s{color:var(--accent);text-decoration:none;}
+.ticker-dot{width:3px;height:3px;border-radius:50%;background:var(--accent);flex-shrink:0;}
 
-/* ─── SECTION HEADER ─────────────────────────────── */
-.sh {
-  padding: 0 20px; margin-bottom: 36px;
-  padding-bottom: 20px; border-bottom: 1px solid var(--line);
-  display: flex; justify-content: space-between; align-items: flex-end;
-}
-.sh-left {}
-.sh-tag { font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
-.sh-title { font-family: var(--serif); font-size: clamp(30px, 8vw, 52px); font-weight: 300; line-height: 1.05; }
-.sh-title i { font-style: italic; }
-.sh-num { font-family: var(--serif); font-size: clamp(48px, 14vw, 80px); font-weight: 300; color: rgba(13,13,11,.08); line-height: 1; }
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+.stat{padding:36px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
+.stat:nth-child(2n){border-right:none;}
+.stat:nth-child(3),.stat:nth-child(4){border-bottom:none;}
+.stat-num{font-family:var(--serif);font-size:clamp(44px,11vw,96px);font-weight:300;line-height:1;color:var(--ink);}
+.stat-num sup{font-size:.38em;color:var(--accent);vertical-align:super;}
+.stat-label{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4;}
 
-/* ─── SERVICES ───────────────────────────────────── */
-.services { padding: 56px 0; }
-.services-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: var(--line);
-}
-.svc {
-  background: var(--paper); position: relative;
-  overflow: hidden; cursor: pointer; aspect-ratio: 3/4;
-}
-.svc img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform .6s ease; filter: sepia(.08) contrast(1.02);
-}
-.svc:hover img { transform: scale(1.05); }
-.svc-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(13,13,11,.75) 0%, transparent 55%);
-}
-.svc-info {
-  position: absolute; bottom: 0; left: 0; right: 0; padding: 18px 16px;
-}
-.svc-n { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 4px; }
-.svc-name { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--paper); line-height: 1.15; }
+/* ── SECTION HEADER ── */
+.sh{padding:0 20px;margin-bottom:36px;padding-bottom:20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end;}
+.sh-tag{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:6px;}
+.sh-title{font-family:var(--serif);font-size:clamp(30px,8vw,80px);font-weight:300;line-height:1.0;color:var(--ink);}
+.sh-title i{font-style:italic;}
+.sh-num{font-family:var(--serif);font-size:clamp(48px,14vw,120px);font-weight:300;color:rgba(13,13,11,.08);line-height:1;}
 
-/* ─── CLIENTS ────────────────────────────────────── */
-.clients { padding: 56px 0; border-top: 1px solid var(--line); }
-.clients-header { padding: 0 20px; margin-bottom: 32px; }
-.clients-marquee { overflow: hidden; position: relative; }
-.clients-marquee::before,
-.clients-marquee::after {
-  content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none;
-}
-.clients-marquee::before { left: 0; background: linear-gradient(to right, var(--paper), transparent); }
-.clients-marquee::after  { right: 0; background: linear-gradient(to left, var(--paper), transparent); }
-.clients-track {
-  display: flex; width: max-content;
-  animation: ticker-scroll 30s linear infinite;
-}
-.clients-track:hover { animation-play-state: paused; }
-.clogo {
-  width: 100px; height: 60px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 20px; opacity: .35; filter: grayscale(1);
-  transition: opacity .3s, filter .3s;
-}
-.clogo:hover { opacity: 1; filter: grayscale(0); }
-.clogo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+/* ── SERVICES ── */
+.services{padding:56px 0;}
+.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);}
+.svc{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4;}
+.svc-photo{position:absolute;inset:0;transition:transform .6s ease;}
+.svc:hover .svc-photo{transform:scale(1.05);}
+.sp1{background:linear-gradient(145deg,#1a2744,#2d4a8a,#0d1a3a);}
+.sp2{background:linear-gradient(145deg,#2d1b0e,#5c3a1e,#1a0e05);}
+.sp3{background:linear-gradient(145deg,#0d2d1e,#1a5c3a,#051a0e);}
+.sp4{background:linear-gradient(145deg,#2d0d1a,#5c1a2d,#1a0508);}
+.sj1{background:linear-gradient(145deg,#0a0a24,#1a1a5c,#050514);}
+.sj2{background:linear-gradient(145deg,#14082d,#2d1a5c,#0a0514);}
+.sj3{background:linear-gradient(145deg,#08142d,#1a2d5c,#040a14);}
+.sj4{background:linear-gradient(145deg,#001428,#00284f,#000a14);}
+.sj5{background:linear-gradient(145deg,#0a1428,#142d5c,#050a14);}
+.sj6{background:linear-gradient(145deg,#141428,#28285c,#0a0a14);}
+.svc-photo::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(255,255,255,.07) 0%,transparent 65%);}
+.svc-geo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.1;}
+.svc-geo svg{width:55%;height:55%;}
+.svc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,transparent 55%);}
+.svc-info{position:absolute;bottom:0;left:0;right:0;padding:18px 16px;}
+.svc-n{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:4px;}
+.svc-name{font-family:var(--serif);font-size:18px;font-weight:300;color:#f5f2ec;line-height:1.15;}
 
-/* ─── COVERAGE ───────────────────────────────────── */
-.coverage { padding: 56px 0; border-top: 1px solid var(--line); }
-.countries {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: var(--line);
-}
-.ctry {
-  background: var(--paper); position: relative;
-  overflow: hidden; cursor: pointer; aspect-ratio: 4/3;
-}
-.ctry img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  filter: sepia(.12) grayscale(.35);
-  transition: transform .6s ease, filter .4s;
-}
-.ctry:hover img { transform: scale(1.05); filter: sepia(.04) grayscale(0); }
-.ctry-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(13,13,11,.8) 0%, rgba(13,13,11,.05) 55%, transparent 100%);
-}
-.ctry-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; }
-.ctry-name { font-family: var(--serif); font-size: 19px; font-weight: 300; color: var(--paper); line-height: 1; }
-.ctry-detail { font-size: 10px; color: rgba(245,242,236,.5); margin-top: 5px; line-height: 1.5; max-height: 0; overflow: hidden; transition: max-height .35s, opacity .3s; opacity: 0; }
-.ctry:hover .ctry-detail { max-height: 50px; opacity: 1; }
-.ctry-bar { width: 0; height: 1px; background: var(--accent); margin-top: 8px; transition: width .35s; }
-.ctry:hover .ctry-bar { width: 30px; }
-/* +5 card */
-.ctry-more {
-  background: var(--ink); display: flex; flex-direction: column;
-  align-items: center; justify-content: center; text-align: center; padding: 24px;
-  aspect-ratio: 4/3;
-}
-.ctry-more-num { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--paper); line-height: 1; }
-.ctry-more-tag { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-top: 6px; }
-.ctry-more-sub { font-size: 11px; color: rgba(245,242,236,.35); margin-top: 4px; }
+/* ── CLIENTS — FIXED: high opacity, dark border ── */
+.clients{padding:56px 0;border-top:1px solid var(--line);}
+.clients-header{padding:0 20px;margin-bottom:32px;}
+.clients-marquee{overflow:hidden;position:relative;}
+.clients-marquee::before,.clients-marquee::after{content:'';position:absolute;top:0;bottom:0;width:40px;z-index:2;pointer-events:none;}
+.clients-marquee::before{left:0;background:linear-gradient(to right,var(--paper),transparent);}
+.clients-marquee::after{right:0;background:linear-gradient(to left,var(--paper),transparent);}
+.clients-track{display:flex;width:max-content;animation:ticker-scroll 35s linear infinite;align-items:center;padding:16px 0;}
+.clients-track:hover{animation-play-state:paused;}
+.clogo{flex-shrink:0;display:flex;align-items:center;justify-content:center;margin:0 28px;opacity:1;transition:transform .2s;}
+.clogo:hover{transform:scale(1.08);}
+.clogo svg{height:32px;width:auto;display:block;}
 
-/* ─── CONTACT ────────────────────────────────────── */
-.contact { border-top: 1px solid var(--line); }
-.contact-dark {
-  background: var(--ink); padding: 64px 20px 52px;
+/* ── TEAM ── */
+.team{padding:56px 0;border-top:1px solid var(--line);}
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);}
+.member{background:var(--paper);position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer;}
+.member-photo{position:absolute;inset:0;transition:transform .5s;}
+.member:hover .member-photo{transform:scale(1.05);}
+.member-photo img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;filter:grayscale(.15) contrast(1.02);}
+/* CSS fallback avatar if image fails */
+.member-photo .avatar{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:48px;font-weight:300;color:rgba(255,255,255,.4);}
+.member-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,11,.85) 0%,transparent 55%);}
+body.brand-b .member-overlay{background:linear-gradient(to top,rgba(10,10,20,.85) 0%,transparent 55%);}
+.member-info{position:absolute;bottom:0;left:0;right:0;padding:16px;}
+.member-name{font-family:var(--serif);font-size:17px;font-weight:300;color:#f5f2ec;line-height:1.1;}
+.member-role{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-top:4px;max-height:0;overflow:hidden;transition:max-height .3s,opacity .3s;opacity:0;}
+.member:hover .member-role{max-height:30px;opacity:1;}
+
+/* ── COVERAGE ── */
+.coverage{padding:56px 0;border-top:1px solid var(--line);}
+.countries{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);}
+.ctry{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3;}
+.ctry-photo{position:absolute;inset:0;transition:transform .6s ease;}
+.ctry:hover .ctry-photo{transform:scale(1.06);}
+.cp-mx{background:linear-gradient(155deg,#1a3a2d,#2d6644,#c8a96e,#8b4513);}
+.cp-pa{background:linear-gradient(155deg,#0d2744,#1a4a8a,#2d8aaa,#1a5c7a);}
+.cp-co{background:linear-gradient(155deg,#1a2d44,#2d4466,#4a6699,#c8a96e);}
+.cp-ec{background:linear-gradient(155deg,#0d1a2d,#1a3a5c,#2d6699,#1a4a7a);}
+.cp-cr{background:linear-gradient(155deg,#0d2d0d,#1a5c1a,#2d8a2d,#c8a96e);}
+.cp-cl{background:linear-gradient(155deg,#1a0d2d,#2d1a5c,#4a2d8a,#c8a96e);}
+.cp-rd{background:linear-gradient(155deg,#2d0d0d,#5c1a1a,#8a2d2d,#c8a96e);}
+.cp-us{background:linear-gradient(155deg,#0a0a2d,#1a1a5c,#2d2d8a,#4f46e5);}
+.cp-latam{background:linear-gradient(155deg,#1a0d2d,#2d1a5c,#5c3a8a,#c8a96e);}
+.ctry-photo::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(255,255,255,.06) 0%,transparent 65%);}
+.ctry-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.08) 55%,transparent 100%);}
+.ctry-info{position:absolute;bottom:0;left:0;right:0;padding:16px;}
+.ctry-name{font-family:var(--serif);font-size:19px;font-weight:300;color:#f5f2ec;line-height:1;}
+.ctry-detail{font-size:10px;color:rgba(245,242,236,.5);margin-top:5px;line-height:1.5;max-height:0;overflow:hidden;transition:max-height .35s,opacity .3s;opacity:0;}
+.ctry:hover .ctry-detail{max-height:60px;opacity:1;}
+.ctry-bar{width:0;height:1px;background:var(--accent);margin-top:8px;transition:width .35s;}
+.ctry:hover .ctry-bar{width:30px;}
+.ctry-more{background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;aspect-ratio:4/3;transition:background .5s;}
+.ctry-more-num{font-family:var(--serif);font-size:44px;font-weight:300;color:var(--paper);line-height:1;}
+.ctry-more-tag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-top:6px;}
+.ctry-more-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;}
+
+/* ── SOCIALS — interactive selector ── */
+.socials-section{padding:48px 20px;border-top:1px solid var(--line);}
+.socials-label{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:20px;}
+.socials{display:flex;gap:12px;flex-wrap:wrap;}
+.social-pill{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border:1px solid var(--line);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--muted);text-decoration:none;cursor:pointer;background:none;font-family:var(--sans);transition:all .25s;position:relative;overflow:hidden;}
+.social-pill::after{content:'↗';position:absolute;right:14px;opacity:0;transform:translate(4px,-4px);transition:all .2s;}
+.social-pill:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);padding-right:32px;}
+.social-pill:hover::after{opacity:1;transform:translate(0,0);}
+.social-pill svg{width:16px;height:16px;flex-shrink:0;}
+/* brand-specific social hover colors */
+.social-li:hover{background:#0a66c2;border-color:#0a66c2;}
+.social-ig:hover{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-color:#dc2743;}
+.social-yt:hover{background:#ff0000;border-color:#ff0000;}
+.social-fb:hover{background:#1877f2;border-color:#1877f2;}
+
+/* ── PROMO DIGITAL ── */
+.promo{padding:56px 0;border-top:1px solid var(--line);}
+.promo-body{padding:0 20px;}
+.promo-quote{font-family:var(--serif);font-size:clamp(18px,4vw,28px);font-weight:300;line-height:1.4;color:var(--ink);max-width:780px;margin-bottom:28px;}
+.promo-quote i{font-style:italic;color:var(--accent);}
+.promo-desc{font-size:14px;color:var(--muted);line-height:1.8;max-width:680px;margin-bottom:40px;}
+.promo-caps{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);}
+.promo-cap{background:var(--paper);padding:28px 24px;}
+.promo-cap-title{font-family:var(--serif);font-size:clamp(18px,4vw,24px);font-weight:300;color:var(--ink);margin-bottom:8px;}
+.promo-cap-title i{font-style:italic;color:var(--accent);}
+.promo-cap-desc{font-size:12px;color:var(--muted);line-height:1.7;}
+
+/* ── CONTACT ── */
+.contact{border-top:1px solid var(--line);}
+.contact-dark{background:var(--ink);padding:64px 20px 52px;transition:background .5s;}
+.contact-tag{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:20px;}
+.contact-title{font-family:var(--serif);font-size:clamp(42px,12vw,110px);font-weight:300;line-height:.95;letter-spacing:-.02em;color:var(--paper);}
+.contact-title i{font-style:italic;color:var(--accent);}
+.contact-sub{font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;margin-top:18px;max-width:420px;}
+.contact-meta{margin-top:28px;display:flex;flex-direction:column;gap:10px;}
+.contact-meta a{font-size:12px;color:rgba(255,255,255,.5);text-decoration:none;display:flex;align-items:center;gap:10px;transition:color .2s;}
+.contact-meta a::before{content:'—';color:var(--accent);flex-shrink:0;}
+.contact-meta a:hover{color:var(--accent);}
+
+/* area contacts */
+.contact-divider{height:1px;background:rgba(255,255,255,.08);margin:24px 0;}
+.contact-areas-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.25);font-weight:500;margin-bottom:16px;}
+.contact-areas{display:flex;flex-direction:column;gap:0;}
+.carea{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07);
+  text-decoration:none;gap:16px;
+  transition:border-color .2s;
 }
-.contact-tag { font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 20px; }
-.contact-title {
-  font-family: var(--serif); font-size: clamp(42px, 12vw, 76px);
-  font-weight: 300; line-height: .98; letter-spacing: -.01em; color: var(--paper);
-}
-.contact-title i { font-style: italic; color: var(--accent); }
-.contact-sub { font-size: 13px; color: rgba(245,242,236,.45); line-height: 1.75; margin-top: 18px; max-width: 420px; }
-.contact-meta { margin-top: 36px; display: flex; flex-direction: column; gap: 12px; }
-.contact-meta a {
-  font-size: 12px; color: rgba(245,242,236,.55); text-decoration: none;
-  display: flex; align-items: center; gap: 10px; transition: color .2s;
-}
-.contact-meta a::before { content: '—'; color: var(--accent); flex-shrink: 0; }
-.contact-meta a:hover { color: var(--accent); }
+.carea:first-child{border-top:1px solid rgba(255,255,255,.07);}
+.carea:hover{border-bottom-color:rgba(200,169,110,.35);}
+.carea:hover .carea-name{color:var(--paper);}
+.carea:hover .carea-arrow{color:var(--accent);transform:translateX(3px);}
+.carea-left{display:flex;flex-direction:column;gap:3px;}
+.carea-role{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:500;}
+.carea-name{font-family:var(--serif);font-size:18px;font-weight:300;color:rgba(255,255,255,.65);line-height:1;transition:color .2s;}
+.carea-email{font-size:10.5px;color:rgba(255,255,255,.3);margin-top:2px;letter-spacing:.02em;}
+.carea-arrow{font-size:16px;color:rgba(255,255,255,.2);flex-shrink:0;transition:color .2s,transform .2s;}
+.contact-form-wrap{padding:48px 20px 64px;}
+.form{display:flex;flex-direction:column;}
+.fgroup{position:relative;border-bottom:1px solid var(--line);padding:18px 0;}
+.fgroup:first-child{border-top:1px solid var(--line);}
+.fgroup label{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:6px;}
+.fgroup input,.fgroup textarea{width:100%;background:none;border:none;outline:none;font-family:var(--sans);font-size:14px;color:var(--ink);resize:none;}
+.fgroup textarea{min-height:72px;}
+.fgroup::after{content:'';position:absolute;bottom:-1px;left:0;width:0;height:1px;background:var(--ink);transition:width .3s;}
+.fgroup:focus-within::after{width:100%;}
+.form-foot{margin-top:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.form-note{font-size:10.5px;color:var(--muted);}
+.submit-btn{background:var(--ink);transition:background .3s;}
+.submit-btn.sent{background:#4a7c59!important;}
 
-.contact-form-wrap { padding: 48px 20px 64px; }
-.form { display: flex; flex-direction: column; }
-.fgroup {
-  position: relative; border-bottom: 1px solid var(--line);
-  padding: 18px 0;
-}
-.fgroup:first-child { border-top: 1px solid var(--line); }
-.fgroup label {
-  display: block; font-size: 9.5px; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 6px;
-}
-.fgroup input, .fgroup textarea {
-  width: 100%; background: none; border: none; outline: none;
-  font-family: var(--sans); font-size: 14px; color: var(--ink); resize: none;
-}
-.fgroup textarea { min-height: 72px; }
-.fgroup::after {
-  content: ''; position: absolute; bottom: -1px; left: 0;
-  width: 0; height: 1px; background: var(--ink); transition: width .3s;
-}
-.fgroup:focus-within::after { width: 100%; }
-.form-foot { margin-top: 28px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.form-note { font-size: 10.5px; color: var(--muted); }
-#submitBtn { background: var(--ink); }
-#submitBtn.sent { background: #4a7c59; }
+/* ── FOOTER ── */
+.footer{border-top:1px solid var(--line);padding:28px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;}
+.footer-logo{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);text-decoration:none;}
+.footer-logo b{color:var(--accent);}
+.footer-links{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;}
+.footer-links a{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
+.footer-copy{font-size:10px;color:var(--muted);}
 
-/* ─── FOOTER ─────────────────────────────────────── */
-.footer {
-  border-top: 1px solid var(--line);
-  padding: 28px 20px; display: flex;
-  flex-direction: column; align-items: center; gap: 14px; text-align: center;
-}
-.footer-logo { font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--ink); text-decoration: none; }
-.footer-logo b { color: var(--accent); }
-.footer-links { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; }
-.footer-links a { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
-.footer-copy { font-size: 10px; color: var(--muted); }
+/* ── REVEAL ── */
+.reveal{opacity:1;transform:none;transition:opacity .65s ease,transform .65s ease;}
+.reveal.pending{opacity:0;transform:translateY(24px);}
+.reveal.pending.on{opacity:1;transform:none;}
+@keyframes ticker-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.anim-1{opacity:0;animation:fadeUp .7s .1s ease forwards;}
+.anim-2{opacity:0;animation:fadeUp .7s .25s ease forwards;}
+.anim-3{opacity:0;animation:fadeUp .7s .4s ease forwards;}
+.anim-4{opacity:0;animation:fadeUp .7s .55s ease forwards;}
+.anim-vis{opacity:0;animation:fadeUp .6s .05s ease forwards;}
 
-/* ─── REVEAL ─────────────────────────────────────── */
-.reveal {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity .65s ease, transform .65s ease;
-}
-.reveal.on { opacity: 1; transform: none; }
-
-/* ─── ANIMATIONS ─────────────────────────────────── */
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.hero-eyebrow { opacity: 0; animation: fadeUp .7s .15s ease forwards; }
-.hero-title   { opacity: 0; animation: fadeUp .7s .28s ease forwards; }
-.hero-desc    { opacity: 0; animation: fadeUp .7s .4s  ease forwards; }
-.hero-actions { opacity: 0; animation: fadeUp .7s .52s ease forwards; }
-.hero-img     { opacity: 0; animation: fadeUp .6s .05s ease forwards; }
-
-/* ─── DESKTOP (768px +) ──────────────────────────── */
-@media (min-width: 768px) {
-  :root { --nav-h: 64px; }
-
-  /* nav */
-  .nav { padding: 0 52px; }
-  .nav-links { display: flex; }
-  .nav-cta { display: block; }
-  .nav-hamburger { display: none; }
-
-  /* hero: side by side */
-  .hero { display: flex; min-height: calc(100svh - var(--nav-h)); }
-  .hero-img {
-    order: 2; flex: 1;
-    height: auto; max-height: none; min-height: 0;
-  }
-  .hero-badge { bottom: 44px; right: auto; left: 36px; padding: 20px 24px; }
-  .hero-badge-num { font-size: 48px; }
-  .hero-body { order: 1; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 72px 52px; border-right: 1px solid var(--line); }
-
-  /* stats 4 cols */
-  .stats { grid-template-columns: repeat(4, 1fr); }
-  .stat { padding: 52px 36px; border-bottom: none; }
-  .stat:nth-child(2n) { border-right: 1px solid var(--line); }
-  .stat:nth-child(3) { border-bottom: none; }
-  .stat:last-child { border-right: none; }
-
-  /* section headers */
-  .sh { padding: 0 52px; margin-bottom: 52px; }
-
-  /* services */
-  .services { padding: 88px 0; }
-  .services-grid { grid-template-columns: repeat(4, 1fr); }
-  .svc-name { font-size: 21px; }
-
-  /* clients */
-  .clients { padding: 88px 0; }
-  .clients-header { padding: 0 52px; }
-  .clients-marquee::before, .clients-marquee::after { width: 120px; }
-  .clogo { width: 120px; height: 70px; margin: 0 28px; }
-
-  /* coverage */
-  .coverage { padding: 88px 0; }
-  .countries { grid-template-columns: repeat(4, 1fr); }
-  .ctry-name { font-size: 22px; }
-
-  /* contact */
-  .contact { display: flex; }
-  .contact-dark { flex: 1; padding: 88px 52px; display: flex; flex-direction: column; justify-content: space-between; }
-  .contact-form-wrap { flex: 1; padding: 72px 52px; }
-
-  /* footer */
-  .footer { flex-direction: row; justify-content: space-between; padding: 24px 52px; text-align: left; }
+/* ── DESKTOP ── */
+@media(min-width:768px){
+  :root{--nav-h:64px;}
+  .nav{grid-template-columns:auto 1fr auto auto;padding:0 52px;gap:32px;}
+  .nav-links{display:flex;}
+  .nav-cta{display:block;}
+  .nav-hamburger{display:none;}
+  .hero{display:flex;min-height:calc(100svh - var(--nav-h));}
+  .hero-visual{order:2;flex:1;height:auto;max-height:none;min-height:0;}
+  .hero-badge{bottom:44px;right:auto;left:36px;padding:20px 24px;}
+  .hero-badge-num{font-size:48px;}
+  .hero-body{order:1;flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:72px 52px;border-right:1px solid var(--line);}
+  .hero-desc{font-size:16px;}
+  .hero-eyebrow{font-size:11px;}
+  .stats{grid-template-columns:repeat(4,1fr);}
+  .stat{padding:52px 36px;border-bottom:none;}
+  .stat:nth-child(2n){border-right:1px solid var(--line);}
+  .stat:nth-child(3){border-bottom:none;}
+  .stat:last-child{border-right:none;}
+  .sh{padding:0 52px;margin-bottom:52px;}
+  .services{padding:88px 0;}
+  .sg4{grid-template-columns:repeat(4,1fr);}
+  .sg6{grid-template-columns:repeat(3,1fr);}
+  .svc-name{font-size:24px;}
+  .sh-title{font-size:clamp(52px,6vw,80px);}
+  .clients{padding:88px 0;}
+  .clients-header{padding:0 52px;}
+  .clients-marquee::before,.clients-marquee::after{width:80px;}
+  .clogo{margin:0 36px;}
+  .clogo svg{height:36px;}
+  .team{padding:88px 0;}
+  .team-grid{grid-template-columns:repeat(4,1fr);}
+  .member-name{font-size:18px;}
+  .coverage{padding:88px 0;}
+  .cg4{grid-template-columns:repeat(4,1fr);}
+  .socials-section{padding:56px 52px;}
+  .promo{padding:88px 0;}
+  .promo-body{padding:0 52px;}
+  .promo-caps{grid-template-columns:repeat(4,1fr);}
+  .promo-quote{font-size:clamp(22px,3vw,32px);}
+  .contact{display:flex;}
+  .contact-dark{flex:1;padding:88px 52px;display:flex;flex-direction:column;justify-content:flex-start;gap:0;overflow-y:auto;}
+  .contact-form-wrap{flex:1;padding:72px 52px;}
+  .footer{flex-direction:row;justify-content:space-between;padding:24px 52px;text-align:left;}
 }
 </style>
 </head>
-<body>
+<body class="brand-a">
 
 <!-- NAV -->
 <nav class="nav" id="nav">
-  <a href="#" class="nav-logo">Pid<b>a</b>mos</a>
+  <div class="brand-switcher">
+    <button class="brand-btn active" id="btnA" onclick="switchBrand('a')">Pidamos</button>
+    <button class="brand-btn" id="btnB" onclick="switchBrand('b')">Jaquematte</button>
+  </div>
   <ul class="nav-links">
     <li><a href="#nosotros">Nosotros</a></li>
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#clientes">Clientes</a></li>
+    <li><a href="#equipo">Equipo</a></li>
     <li><a href="#cobertura">Cobertura</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <a href="#contacto" class="nav-cta">Hablemos →</a>
-  <button class="nav-hamburger" id="ham" aria-label="Menú">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-hamburger" id="ham"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- MOBILE DRAWER -->
 <div class="nav-drawer" id="drawer">
-  <a href="#nosotros"  onclick="closeMenu()">Nosotros</a>
+  <a href="#nosotros" onclick="closeMenu()">Nosotros</a>
   <a href="#servicios" onclick="closeMenu()">Servicios</a>
-  <a href="#clientes"  onclick="closeMenu()">Clientes</a>
+  <a href="#clientes" onclick="closeMenu()">Clientes</a>
+  <a href="#equipo" onclick="closeMenu()">Equipo</a>
   <a href="#cobertura" onclick="closeMenu()">Cobertura</a>
-  <a href="#contacto"  onclick="closeMenu()">Hablemos →</a>
+  <a href="#contacto" onclick="closeMenu()">Hablemos →</a>
 </div>
 
-<!-- HERO -->
-<section class="hero" id="nosotros">
-  <!-- image comes FIRST in DOM — no order tricks needed -->
-  <div class="hero-img">
-    <img
-      src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80"
-      alt="Evento corporativo"
-      loading="eager"
-      onerror="this.src='https://pidamos.com/wp-content/uploads/2022/10/convenciones-2-1.jpeg'"
-    >
-    <div class="hero-img-overlay"></div>
-    <div class="hero-badge">
-      <div class="hero-badge-num">70<i>%</i></div>
-      <div class="hero-badge-label">Retención a 5+ años</div>
+<!-- ══ BRAND A — PIDAMOS ══ -->
+<div class="brand-page active" id="page-a">
+  <section class="hero" id="nosotros">
+    <div class="hero-visual anim-vis">
+      <div class="vis-panel vis-pidamos"></div>
+      <div class="hero-badge"><div class="hero-badge-num">70<i>%</i></div><div class="hero-badge-label">Retención a 5+ años</div></div>
     </div>
+    <div class="hero-body">
+      <p class="hero-eyebrow anim-1">Red de Marketing · Latinoamérica</p>
+      <h1 class="hero-title anim-2">Presencia<br>donde<br><i>importa.</i></h1>
+      <p class="hero-desc anim-3">Más de 22 años construyendo relaciones entre marcas multinacionales y sus mercados en 15 países. Nos encargamos de todo; usted, de su negocio.</p>
+      <div class="hero-actions anim-4">
+        <a href="#contacto" class="btn btn-fill">Iniciar proyecto <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="#servicios" class="btn btn-text">Ver servicios</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker ticker-a"><div class="ticker-track">
+    <div class="ticker-item">Activaciones de Marca<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Stands y Exhibición<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Eventos Corporativos<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Convenciones<span class="ticker-dot"></span></div>
+    <div class="ticker-item"><s>15 países</s><span class="ticker-dot"></span></div>
+    <div class="ticker-item">Marketing Regional<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Activaciones de Marca<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Stands y Exhibición<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Eventos Corporativos<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Convenciones<span class="ticker-dot"></span></div>
+    <div class="ticker-item"><s>15 países</s><span class="ticker-dot"></span></div>
+    <div class="ticker-item">Marketing Regional<span class="ticker-dot"></span></div>
+  </div></div>
+
+  <div class="stats reveal">
+    <div class="stat"><div class="stat-num">22<sup>años</sup></div><div class="stat-label">De experiencia regional</div></div>
+    <div class="stat"><div class="stat-num">15<sup>+</sup></div><div class="stat-label">Países con presencia</div></div>
+    <div class="stat"><div class="stat-num">70<sup>%</sup></div><div class="stat-label">Clientes +5 años</div></div>
+    <div class="stat"><div class="stat-num">12<sup>+</sup></div><div class="stat-label">Mercados activos</div></div>
   </div>
 
-  <!-- text block -->
-  <div class="hero-body">
-    <p class="hero-eyebrow">Red de Marketing · Latinoamérica</p>
-    <h1 class="hero-title">
-      Presencia<br>donde<br><i>importa.</i>
-    </h1>
-    <p class="hero-desc">
-      Más de 22 años construyendo relaciones entre marcas multinacionales
-      y sus mercados en 15 países. Nos encargamos de todo; usted, de su negocio.
-    </p>
-    <div class="hero-actions">
-      <a href="#contacto" class="btn btn-fill">
-        Iniciar proyecto
-        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-          <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+  <section class="services reveal" id="servicios">
+    <div class="sh"><div class="sh-left"><div class="sh-tag">Lo que hacemos</div><h2 class="sh-title">Nuestros<br><i>Servicios</i></h2></div><div class="sh-num">04</div></div>
+    <div class="services-grid sg4">
+      <div class="svc"><div class="svc-photo sp1"><div class="svc-geo"><svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="1"/><circle cx="50" cy="50" r="22" stroke="white" stroke-width="1"/><line x1="10" y1="50" x2="90" y2="50" stroke="white" stroke-width="1"/><line x1="50" y1="10" x2="50" y2="90" stroke="white" stroke-width="1"/></svg></div></div><div class="svc-overlay"></div><div class="svc-info"><div class="svc-n">01</div><div class="svc-name">Convenciones</div></div></div>
+      <div class="svc"><div class="svc-photo sp2"><div class="svc-geo"><svg viewBox="0 0 100 100" fill="none"><rect x="15" y="15" width="70" height="70" stroke="white" stroke-width="1"/><rect x="30" y="30" width="40" height="40" stroke="white" stroke-width="1"/></svg></div></div><div class="svc-overlay"></div><div class="svc-info"><div class="svc-n">02</div><div class="svc-name">Stands y Exhibición</div></div></div>
+      <div class="svc"><div class="svc-photo sp3"><div class="svc-geo"><svg viewBox="0 0 100 100" fill="none"><polygon points="50,8 92,80 8,80" stroke="white" stroke-width="1"/><polygon points="50,28 74,76 26,76" stroke="white" stroke-width="1"/></svg></div></div><div class="svc-overlay"></div><div class="svc-info"><div class="svc-n">03</div><div class="svc-name">Eventos Corporativos</div></div></div>
+      <div class="svc"><div class="svc-photo sp4"><div class="svc-geo"><svg viewBox="0 0 100 100" fill="none"><line x1="10" y1="10" x2="90" y2="90" stroke="white" stroke-width="1"/><line x1="90" y1="10" x2="10" y2="90" stroke="white" stroke-width="1"/><circle cx="50" cy="50" r="35" stroke="white" stroke-width="1"/></svg></div></div><div class="svc-overlay"></div><div class="svc-info"><div class="svc-n">04</div><div class="svc-name">Activaciones de Marca</div></div></div>
+    </div>
+  </section>
+
+  <!-- CLIENTS con logos visibles -->
+  <section class="clients reveal" id="clientes">
+    <div class="clients-header"><div class="sh-tag">Quiénes confían en nosotros</div><h2 class="sh-title" style="font-size:clamp(26px,7vw,44px);margin-top:6px;">Clientes que <i>permanecen</i></h2></div>
+    <div class="clients-marquee"><div class="clients-track">
+      <div class="clogo"><svg viewBox="0 0 80 34"><text x="1" y="26" font-family="Georgia,serif" font-size="26" font-weight="700" fill="#003399">P&amp;G</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 150 42"><text x="1" y="34" font-family="Georgia,serif" font-size="32" fill="#F40009">Coca‑Cola</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 100 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#009A3D">Nestlé</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 100 34"><text x="1" y="28" font-family="Arial,sans-serif" font-size="26" font-weight="900" fill="#111111">adidas</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#1F36C7">Unilever</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 130 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#1428A0">SAMSUNG</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 85 34"><text x="1" y="28" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#10A940">Bayer</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 85 34"><text x="1" y="28" font-family="Arial,sans-serif" font-size="28" font-weight="900" fill="#111111">NIKE</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="27" font-family="Arial,sans-serif" font-size="24" font-weight="800" fill="#E3000B">COLGATE</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 58 34"><text x="1" y="30" font-family="Arial,sans-serif" font-size="32" font-weight="900" fill="#FF0000">3M</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#0070C0">Chevrolet</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 55 34"><text x="1" y="27" font-family="Arial,sans-serif" font-size="24" font-weight="900" fill="#0066B1">GM</text></svg></div>
+      <!-- loop -->
+      <div class="clogo"><svg viewBox="0 0 80 34"><text x="1" y="26" font-family="Georgia,serif" font-size="26" font-weight="700" fill="#003399">P&amp;G</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 150 42"><text x="1" y="34" font-family="Georgia,serif" font-size="32" fill="#F40009">Coca‑Cola</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 100 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#009A3D">Nestlé</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 100 34"><text x="1" y="28" font-family="Arial,sans-serif" font-size="26" font-weight="900" fill="#111111">adidas</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#1F36C7">Unilever</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 130 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#1428A0">SAMSUNG</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 85 34"><text x="1" y="28" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#10A940">Bayer</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 85 34"><text x="1" y="28" font-family="Arial,sans-serif" font-size="28" font-weight="900" fill="#111111">NIKE</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="27" font-family="Arial,sans-serif" font-size="24" font-weight="800" fill="#E3000B">COLGATE</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 58 34"><text x="1" y="30" font-family="Arial,sans-serif" font-size="32" font-weight="900" fill="#FF0000">3M</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#0070C0">Chevrolet</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 55 34"><text x="1" y="27" font-family="Arial,sans-serif" font-size="24" font-weight="900" fill="#0066B1">GM</text></svg></div>
+    </div></div>
+  </section>
+
+  <!-- TEAM — Pidamos (mismas personas, mismo grupo) -->
+  <section class="team reveal" id="equipo">
+    <div class="sh"><div class="sh-left"><div class="sh-tag">Team Latam</div><h2 class="sh-title">Nuestro<br><i>Equipo</i></h2></div><div class="sh-num">14</div></div>
+    <div class="team-grid">
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/10/jaque222.jpg" alt="Yuleika Zambrano" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Yuleika Zambrano</div><div class="member-role">Dirección General</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Andrea-Mayoral-1.jpg" alt="Andrea Mayoral" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Andrea Mayoral</div><div class="member-role">Gestión de Proyectos</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Andrés-Silva.jpg" alt="Andrés Silva" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Andrés Silva</div><div class="member-role">Producción</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Armando-Manrique.jpg" alt="Armando Manrique" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Armando Manrique</div><div class="member-role">Operaciones</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Camilo-Loboguerrero-2-scaled.jpg" alt="Camilo Lobo Guerrero" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Camilo Lobo Guerrero</div><div class="member-role">Estrategia</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Douglas-Torrealba-2-scaled.jpg" alt="Douglas Torrealba" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Douglas Torrealba</div><div class="member-role">Cuentas Regionales</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/EMERSON-DIMAS-1-scaled.jpg" alt="Emerson Dimas" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Emerson Dimas</div><div class="member-role">Logística</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Hector-Hernan-Cortes-Hoyos-1-scaled.jpg" alt="Hector Cortes" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Hector Hernan Cortes</div><div class="member-role">Producción Escenográfica</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/JOHN.MELO_-1.jpg" alt="John Melo" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">John Melo</div><div class="member-role">Trade Marketing</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Karen-Montenegro-2.jpg" alt="Karen Montenegro" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Karen Montenegro</div><div class="member-role">Coordinación</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Laura-Lozano-1.jpg" alt="Laura Lozano" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Laura Lozano</div><div class="member-role">Cuentas Clave</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Lucy-Garzon.jpg" alt="Lucy Garzon" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Lucy Garzon</div><div class="member-role">Administración</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Margarita-Arias-scaled.jpg" alt="Margarita Arias" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Margarita Arias</div><div class="member-role">Creatividad y Diseño</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Milton-Gonzalez-1-1.jpg" alt="Milton Gonzalez" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Milton Gonzalez</div><div class="member-role">Operaciones Regionales</div></div></div>
+    </div>
+  </section>
+
+  <section class="coverage reveal" id="cobertura">
+    <div class="sh"><div class="sh-left"><div class="sh-tag">Cobertura regional</div><h2 class="sh-title">Donde<br><i>estamos</i></h2></div><div class="sh-num">07</div></div>
+    <div class="countries cg4">
+      <div class="ctry"><div class="ctry-photo cp-mx"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">México</div><div class="ctry-detail">Av. Homero 229 Polanco, CDMX</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-pa"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Panamá</div><div class="ctry-detail">Financial Park, Costa del Este</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-co"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Colombia</div><div class="ctry-detail">Cra. 18 No. 93-25, of. 304, Bogotá</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-ec"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Ecuador</div><div class="ctry-detail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e2818d8c968381968da2928b86838f8d91cc818d8f">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-cr"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Costa Rica</div><div class="ctry-detail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4e2d21203a2f2d3a210e3e272a2f23213d602d2123">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-cl"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Chile</div><div class="ctry-detail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb9894958f9a988f94bb8b929f9a969488d5989496">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-rd"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Rep. Dominicana</div><div class="ctry-detail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd9e9293899c9e8992bd8d94999c90928ed39e9290">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry-more"><div class="ctry-more-num">+5</div><div class="ctry-more-tag">más países</div><div class="ctry-more-sub">en expansión</div></div>
+    </div>
+  </section>
+
+  <section class="contact reveal" id="contacto">
+    <div class="contact-dark">
+      <div>
+        <p class="contact-tag">Hablemos de su proyecto</p>
+        <h2 class="contact-title">Su próximo<br>gran<br><i>movimiento.</i></h2>
+        <p class="contact-sub">Listos en más de 12 países. Cuéntenos su proyecto y en menos de 48 horas tendrá una propuesta.</p>
+      </div>
+      <div class="contact-meta">
+        <a href="tel:+57">Teléfono (+57) contacto directo</a>
+        <a href="mailto:contacto@pidamos.com">contacto@pidamos.com</a>
+        <a href="https://wa.me/57" target="_blank">WhatsApp 24/7</a>
+      </div>
+      <div class="contact-divider"></div>
+      <p class="contact-areas-label">Contacto directo por área</p>
+      <div class="contact-areas">
+        <a href="mailto:direccion@pidamos.com?subject=Consulta%20%E2%80%94%20Direcci%C3%B3n" class="carea">
+          <div class="carea-left">
+            <span class="carea-role">Dirección</span>
+            <span class="carea-name">Yuleika Zambrano</span>
+            <span class="carea-email">direccion@pidamos.com</span>
+          </div>
+          <span class="carea-arrow">→</span>
+        </a>
+        <a href="mailto:comercial@pidamos.com?subject=Cotizaci%C3%B3n%20%E2%80%94%20%C3%81rea%20Comercial" class="carea">
+          <div class="carea-left">
+            <span class="carea-role">Comercial</span>
+            <span class="carea-name">Cuentas y Nuevos Negocios</span>
+            <span class="carea-email">comercial@pidamos.com</span>
+          </div>
+          <span class="carea-arrow">→</span>
+        </a>
+        <a href="mailto:produccion@pidamos.com?subject=Consulta%20%E2%80%94%20Producci%C3%B3n" class="carea">
+          <div class="carea-left">
+            <span class="carea-role">Producción</span>
+            <span class="carea-name">Logística y Escenografía</span>
+            <span class="carea-email">produccion@pidamos.com</span>
+          </div>
+          <span class="carea-arrow">→</span>
+        </a>
+        <a href="mailto:admin@pidamos.com?subject=Consulta%20Administrativa" class="carea">
+          <div class="carea-left">
+            <span class="carea-role">Administración</span>
+            <span class="carea-name">Facturación y Contratos</span>
+            <span class="carea-email">admin@pidamos.com</span>
+          </div>
+          <span class="carea-arrow">→</span>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form-wrap"><div class="form">
+      <div class="fgroup"><label>Nombre completo</label><input type="text" placeholder="Su nombre y empresa"></div>
+      <div class="fgroup"><label>Correo electrónico</label><input type="email" placeholder="correo@empresa.com"></div>
+      <div class="fgroup"><label>País / Ciudad</label><input type="text" placeholder="¿Desde dónde nos escribe?"></div>
+      <div class="fgroup"><label>Mensaje</label><textarea placeholder="Cuéntenos su proyecto…"></textarea></div>
+      <div class="form-foot"><button class="btn btn-fill submit-btn" onclick="handleSubmit(this)">Enviar mensaje <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="form-note">Respuesta en &lt; 48 h</span></div>
+    </div></div>
+  </section>
+
+  <footer class="footer"><a href="#" class="footer-logo">Pid<b>a</b>mos</a><div class="footer-links"><a href="#nosotros">Nosotros</a><a href="#servicios">Servicios</a><a href="#equipo">Equipo</a><a href="#contacto">Contacto</a></div><span class="footer-copy">© 2026 Pidamos Marketing</span></footer>
+</div>
+
+<!-- ══ BRAND B — JAQUEMATTE ══ -->
+<div class="brand-page" id="page-b">
+  <section class="hero" id="nosotros">
+    <div class="hero-visual anim-vis">
+      <div class="vis-panel vis-jaquematte"></div>
+      <div class="hero-badge"><div class="hero-badge-num">15<i>+</i></div><div class="hero-badge-label">Años en el mercado</div></div>
+    </div>
+    <div class="hero-body">
+      <p class="hero-eyebrow anim-1">Agencia Regional · 12 Territorios</p>
+      <h1 class="hero-title anim-2">La respuesta<br>más<br><i>completa.</i></h1>
+      <p class="hero-desc anim-3">Un solo punto de contacto para ejecutar estrategias de Trade y Marketing en más de 12 territorios de Latinoamérica, con capacidad y experiencia demostradas.</p>
+      <div class="hero-actions anim-4">
+        <a href="#contacto" class="btn btn-fill">Iniciar proyecto <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="#servicios" class="btn btn-text">Ver servicios</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker ticker-b"><div class="ticker-track">
+    <div class="ticker-item">Activaciones de Marca<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Promociones Digitales<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Stands y Exhibición<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Eventos Corporativos<span class="ticker-dot"></span></div>
+    <div class="ticker-item"><s>Marketing de Influencers</s><span class="ticker-dot"></span></div>
+    <div class="ticker-item">Convenciones<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Activaciones de Marca<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Promociones Digitales<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Stands y Exhibición<span class="ticker-dot"></span></div>
+    <div class="ticker-item">Eventos Corporativos<span class="ticker-dot"></span></div>
+    <div class="ticker-item"><s>Marketing de Influencers</s><span class="ticker-dot"></span></div>
+    <div class="ticker-item">Convenciones<span class="ticker-dot"></span></div>
+  </div></div>
+
+  <div class="stats reveal">
+    <div class="stat"><div class="stat-num">15<sup>+</sup></div><div class="stat-label">Años en el mercado</div></div>
+    <div class="stat"><div class="stat-num">12<sup>+</sup></div><div class="stat-label">Territorios activos</div></div>
+    <div class="stat"><div class="stat-num">70<sup>%</sup></div><div class="stat-label">Clientes +5 años</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Líneas de servicio</div></div>
+  </div>
+
+  <section class="services reveal" id="servicios">
+    <div class="sh"><div class="sh-left"><div class="sh-tag">Lo que hacemos</div><h2 class="sh-title">Nuestros<br><i>Servicios</i></h2></div><div class="sh-num">06</div></div>
+    <div class="services-grid sg6">
+      <div class="svc"><div class="svc-photo sj1"><div class="svc-geo"><svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="1"/><line x1="10" y1="50" x2="90" y2="50" stroke="white" stroke-width="1"/><line x1="50" y1="10" x2="50" y2="90" stroke="white" stroke-width="1"/></svg></div></div><div class="svc-overlay"></div><div class="svc-info"><div class="svc-n">01</div><div class="svc-name">Activaciones de Marca</div></div></div>
+      <div class="svc"><div class="svc-photo sj2"><div class="svc-geo"><svg viewBox="0 0 100 100" fill="none"><rect x="10" y="30" width="80" height="50" stroke="white" stroke-width="1"/><circle cx="50" cy="18" r="12" stroke="white" stroke-width="1"/></svg></div></div><div class="svc-overlay"></div><div class="svc-info"><div class="svc-n">02</div><div class="svc-name">Promociones Digitales</div></div></div>
+      <div class="svc"><div class="svc-photo sj3"><div class="svc-geo"><svg viewBox="0 0 100 100" fill="none"><rect x="15" y="15" width="70" height="70" stroke="white" stroke-width="1"/><rect x="30" y="30" width="40" height="40" stroke="white" stroke-width="1"/></svg></div></div><div class="svc-overlay"></div><div class="svc-info"><div class="svc-n">03</div><div class="svc-name">Stands y Exhibición</div></div></div>
+      <div class="svc"><div class="svc-photo sj4"><div class="svc-geo"><svg viewBox="0 0 100 100" fill="none"><polygon points="50,8 92,80 8,80" stroke="white" stroke-width="1"/></svg></div></div><div class="svc-overlay"></div><div class="svc-info"><div class="svc-n">04</div><div class="svc-name">Eventos Corporativos</div></div></div>
+      <div class="svc"><div class="svc-photo sj5"><div class="svc-geo"><svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="38" stroke="white" stroke-width="1"/><line x1="12" y1="12" x2="88" y2="88" stroke="white" stroke-width="1"/><line x1="88" y1="12" x2="12" y2="88" stroke="white" stroke-width="1"/></svg></div></div><div class="svc-overlay"></div><div class="svc-info"><div class="svc-n">05</div><div class="svc-name">Convenciones</div></div></div>
+      <div class="svc"><div class="svc-photo sj6"><div class="svc-geo"><svg viewBox="0 0 100 100" fill="none"><circle cx="30" cy="38" r="14" stroke="white" stroke-width="1"/><circle cx="70" cy="38" r="14" stroke="white" stroke-width="1"/><circle cx="50" cy="68" r="14" stroke="white" stroke-width="1"/></svg></div></div><div class="svc-overlay"></div><div class="svc-info"><div class="svc-n">06</div><div class="svc-name">Marketing de Influencers</div></div></div>
+    </div>
+  </section>
+
+  <section class="clients reveal" id="clientes">
+    <div class="clients-header"><div class="sh-tag">Quiénes confían en nosotros</div><h2 class="sh-title" style="font-size:clamp(26px,7vw,44px);margin-top:6px;">Clientes que <i>permanecen</i></h2></div>
+    <div class="clients-marquee"><div class="clients-track">
+      <div class="clogo"><svg viewBox="0 0 80 34"><text x="1" y="26" font-family="Georgia,serif" font-size="26" font-weight="700" fill="#003399">P&amp;G</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 150 42"><text x="1" y="34" font-family="Georgia,serif" font-size="32" fill="#F40009">Coca‑Cola</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 100 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#009A3D">Nestlé</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 100 34"><text x="1" y="28" font-family="Arial,sans-serif" font-size="26" font-weight="900" fill="#111111">adidas</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#1F36C7">Unilever</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 130 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#1428A0">SAMSUNG</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 85 34"><text x="1" y="28" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#10A940">Bayer</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="27" font-family="Arial,sans-serif" font-size="24" font-weight="800" fill="#E3000B">COLGATE</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#0070C0">Chevrolet</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 55 34"><text x="1" y="27" font-family="Arial,sans-serif" font-size="24" font-weight="900" fill="#0066B1">GM</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 80 34"><text x="1" y="26" font-family="Georgia,serif" font-size="26" font-weight="700" fill="#003399">P&amp;G</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 150 42"><text x="1" y="34" font-family="Georgia,serif" font-size="32" fill="#F40009">Coca‑Cola</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 100 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#009A3D">Nestlé</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 100 34"><text x="1" y="28" font-family="Arial,sans-serif" font-size="26" font-weight="900" fill="#111111">adidas</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#1F36C7">Unilever</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 130 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#1428A0">SAMSUNG</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 85 34"><text x="1" y="28" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#10A940">Bayer</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="27" font-family="Arial,sans-serif" font-size="24" font-weight="800" fill="#E3000B">COLGATE</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 120 34"><text x="1" y="26" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#0070C0">Chevrolet</text></svg></div>
+      <div class="clogo"><svg viewBox="0 0 55 34"><text x="1" y="27" font-family="Arial,sans-serif" font-size="24" font-weight="900" fill="#0066B1">GM</text></svg></div>
+    </div></div>
+  </section>
+
+  <!-- TEAM — Jaquematte actualizado -->
+  <section class="team reveal" id="equipo">
+    <div class="sh"><div class="sh-left"><div class="sh-tag">Team Latam</div><h2 class="sh-title">Nuestro<br><i>Equipo</i></h2></div><div class="sh-num">14</div></div>
+    <div class="team-grid">
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/10/jaque222.jpg" alt="Yuleika Zambrano" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Yuleika Zambrano</div><div class="member-role">Dirección General</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Andrea-Mayoral-1.jpg" alt="Andrea Mayoral" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Andrea Mayoral</div><div class="member-role">Gestión de Proyectos</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Andrés-Silva.jpg" alt="Andrés Silva" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Andrés Silva</div><div class="member-role">Producción</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Armando-Manrique.jpg" alt="Armando Manrique" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Armando Manrique</div><div class="member-role">Operaciones</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Camilo-Loboguerrero-2-scaled.jpg" alt="Camilo Lobo Guerrero" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Camilo Lobo Guerrero</div><div class="member-role">Estrategia Regional</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Douglas-Torrealba-2-scaled.jpg" alt="Douglas Torrealba" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Douglas Torrealba</div><div class="member-role">Cuentas Regionales</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/EMERSON-DIMAS-1-scaled.jpg" alt="Emerson Dimas" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Emerson Dimas</div><div class="member-role">Logística</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Hector-Hernan-Cortes-Hoyos-1-scaled.jpg" alt="Hector Cortes" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Hector Hernan Cortes</div><div class="member-role">Producción Escenográfica</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/JOHN.MELO_-1.jpg" alt="John Melo" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">John Melo</div><div class="member-role">Trade Marketing</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Karen-Montenegro-2.jpg" alt="Karen Montenegro" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Karen Montenegro</div><div class="member-role">Coordinación</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Laura-Lozano-1.jpg" alt="Laura Lozano" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Laura Lozano</div><div class="member-role">Cuentas Clave</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Lucy-Garzon.jpg" alt="Lucy Garzon" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Lucy Garzon</div><div class="member-role">Administración</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Margarita-Arias-scaled.jpg" alt="Margarita Arias" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Margarita Arias</div><div class="member-role">Creatividad y Diseño</div></div></div>
+      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Milton-Gonzalez-1-1.jpg" alt="Milton Gonzalez" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Milton Gonzalez</div><div class="member-role">Operaciones Regionales</div></div></div>
+    </div>
+  </section>
+
+  <!-- COBERTURA — países actualizados con teléfonos reales -->
+  <section class="coverage reveal" id="cobertura">
+    <div class="sh"><div class="sh-left"><div class="sh-tag">Cobertura regional</div><h2 class="sh-title">Donde<br><i>estamos</i></h2></div><div class="sh-num">09</div></div>
+    <div class="countries cg4">
+      <div class="ctry"><div class="ctry-photo cp-mx"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">México</div><div class="ctry-detail">(+52 1) 55 5254 2235<br>(+52 1) 55 8035 6104<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-pa"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Panamá</div><div class="ctry-detail">(+507) 2098651 / 52<br>(+507) 6310-6233<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-cr"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Costa Rica</div><div class="ctry-detail">(+506) 8993 6675<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-us"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Estados Unidos</div><div class="ctry-detail">(+521) 55 8035 6104<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-ec"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Ecuador</div><div class="ctry-detail">Av. América #39-285 y Vozandes<br>(+593) 99 766 8197<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-co"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Colombia</div><div class="ctry-detail">Cra. 18 No. 93-25, Edificio Inverpor<br>(+57) 312 434 3926<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-rd"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Rep. Dominicana</div><div class="ctry-detail">(+521) 55 8035 6104<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-cl"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Chile</div><div class="ctry-detail">(+521) 55 8035 6104<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-latam"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Centroamérica</div><div class="ctry-detail">Guatemala · Nicaragua · El Salvador<br>Honduras · Puerto Rico · Uruguay</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry-more"><div class="ctry-more-num">12<span style="font-size:.5em;color:var(--accent);font-style:italic;">+</span></div><div class="ctry-more-tag">mercados</div><div class="ctry-more-sub">en Latinoamérica</div></div>
+    </div>
+  </section>
+
+  <!-- PROMOCIONES DIGITALES — sección exclusiva Jaquematte -->
+  <section class="promo reveal">
+    <div class="sh"><div class="sh-left"><div class="sh-tag">Servicio destacado</div><h2 class="sh-title">Promociones<br><i>Digitales</i></h2></div><div class="sh-num">↗</div></div>
+    <div class="promo-body">
+      <p class="promo-quote">No somos una agencia digital más. Creamos plataformas promocionales que combinan lo mejor del <i>on y el off line</i> — así es como funciona el mundo.</p>
+      <p class="promo-desc">Desarrollamos soluciones a la medida para participación masiva en promociones y concursos vía web o app, pensando estrategias basadas en la realidad de consumidores que existen tanto en el mundo físico como en el digital.</p>
+      <div class="promo-caps">
+        <div class="promo-cap"><div class="promo-cap-title">Plataformas <i>a la medida</i></div><div class="promo-cap-desc">Desarrollos propios para concursos, sorteos y activaciones con participación masiva vía web o app móvil, sin depender de terceros.</div></div>
+        <div class="promo-cap"><div class="promo-cap-title">Estrategia <i>phygital</i></div><div class="promo-cap-desc">Combinamos puntos de venta físicos con ecosistemas digitales. El consumidor de carne y hueso también vive en pantallas.</div></div>
+        <div class="promo-cap"><div class="promo-cap-title">Influencers <i>regionales</i></div><div class="promo-cap-desc">Conectamos marcas con comunidades reales a través de voces locales que entienden cada mercado de Latinoamérica.</div></div>
+        <div class="promo-cap"><div class="promo-cap-title">Medición <i>efectiva</i></div><div class="promo-cap-desc">Todo lo que hacemos es creativo, realizable y medible. Los KPIs de la campaña regional no son negociables.</div></div>
+      </div>
+      <div style="margin-top:28px;">
+        <a href="https://jaquematte.com/promociones-y-desarrollo-digital/" target="_blank" class="btn btn-fill">Ver más en jaquematte.com <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- REDES SOCIALES — selector con redirección real -->
+  <div class="socials-section reveal">
+    <p class="socials-label">Síguenos en nuestras redes</p>
+    <div class="socials">
+      <a href="https://www.linkedin.com/company/jaquematte-latam/" target="_blank" rel="noopener" class="social-pill social-li">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
       </a>
-      <a href="#servicios" class="btn btn-text">Ver servicios</a>
+      <a href="https://www.instagram.com/jaquematte_latam/" target="_blank" rel="noopener" class="social-pill social-ig">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+      <a href="https://youtu.be/XbwQ-Zh7SYA" target="_blank" rel="noopener" class="social-pill social-yt">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+        YouTube
+      </a>
+      <a href="https://www.facebook.com/jaquematte" target="_blank" rel="noopener" class="social-pill social-fb">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        Facebook
+      </a>
     </div>
   </div>
-</section>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track">
-    <div class="ticker-item">Activaciones de Marca<span class="ticker-dot"></span></div>
-    <div class="ticker-item">Stands y Exhibición<span class="ticker-dot"></span></div>
-    <div class="ticker-item">Eventos Corporativos<span class="ticker-dot"></span></div>
-    <div class="ticker-item">Convenciones<span class="ticker-dot"></span></div>
-    <div class="ticker-item"><s>15 países</s><span class="ticker-dot"></span></div>
-    <div class="ticker-item">Producción Escenográfica<span class="ticker-dot"></span></div>
-    <div class="ticker-item">Marketing Regional<span class="ticker-dot"></span></div>
-    <div class="ticker-item">Activaciones de Marca<span class="ticker-dot"></span></div>
-    <div class="ticker-item">Stands y Exhibición<span class="ticker-dot"></span></div>
-    <div class="ticker-item">Eventos Corporativos<span class="ticker-dot"></span></div>
-    <div class="ticker-item">Convenciones<span class="ticker-dot"></span></div>
-    <div class="ticker-item"><s>15 países</s><span class="ticker-dot"></span></div>
-    <div class="ticker-item">Producción Escenográfica<span class="ticker-dot"></span></div>
-    <div class="ticker-item">Marketing Regional<span class="ticker-dot"></span></div>
-  </div>
+  <section class="contact reveal" id="contacto">
+    <div class="contact-dark">
+      <div>
+        <p class="contact-tag">Hablemos de su proyecto</p>
+        <h2 class="contact-title">Su próximo<br>gran<br><i>movimiento.</i></h2>
+        <p class="contact-sub">Listos en más de 12 territorios. Cuéntenos su proyecto y en menos de 48 horas tendrá una propuesta.</p>
+      </div>
+      <div class="contact-meta">
+        <a href="tel:+50763106233">Panamá: (+507) 6310-6233</a>
+        <a href="tel:+50689936675">Costa Rica: (+506) 8993 6675</a>
+        <a href="mailto:contacto@jaquematte.com">contacto@jaquematte.com</a>
+        <a href="https://wa.me/50763106233" target="_blank">WhatsApp 24/7</a>
+      </div>
+      <div class="contact-divider"></div>
+      <p class="contact-areas-label">Contacto directo por área</p>
+      <div class="contact-areas">
+        <a href="mailto:direccion@jaquematte.com?subject=Consulta%20%E2%80%94%20Direcci%C3%B3n" class="carea">
+          <div class="carea-left">
+            <span class="carea-role">Dirección</span>
+            <span class="carea-name">Yuleika Zambrano</span>
+            <span class="carea-email">direccion@jaquematte.com</span>
+          </div>
+          <span class="carea-arrow">→</span>
+        </a>
+        <a href="mailto:comercial@jaquematte.com?subject=Cotizaci%C3%B3n%20%E2%80%94%20%C3%81rea%20Comercial" class="carea">
+          <div class="carea-left">
+            <span class="carea-role">Comercial</span>
+            <span class="carea-name">Cuentas y Nuevos Negocios</span>
+            <span class="carea-email">comercial@jaquematte.com</span>
+          </div>
+          <span class="carea-arrow">→</span>
+        </a>
+        <a href="mailto:produccion@jaquematte.com?subject=Consulta%20%E2%80%94%20Producci%C3%B3n" class="carea">
+          <div class="carea-left">
+            <span class="carea-role">Producción</span>
+            <span class="carea-name">Logística y Escenografía</span>
+            <span class="carea-email">produccion@jaquematte.com</span>
+          </div>
+          <span class="carea-arrow">→</span>
+        </a>
+        <a href="mailto:admin@jaquematte.com?subject=Consulta%20Administrativa" class="carea">
+          <div class="carea-left">
+            <span class="carea-role">Administración</span>
+            <span class="carea-name">Facturación y Contratos</span>
+            <span class="carea-email">admin@jaquematte.com</span>
+          </div>
+          <span class="carea-arrow">→</span>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form-wrap"><div class="form">
+      <div class="fgroup"><label>Nombre completo</label><input type="text" placeholder="Su nombre y empresa"></div>
+      <div class="fgroup"><label>Correo electrónico</label><input type="email" placeholder="correo@empresa.com"></div>
+      <div class="fgroup"><label>País / Ciudad</label><input type="text" placeholder="¿Desde dónde nos escribe?"></div>
+      <div class="fgroup"><label>Mensaje</label><textarea placeholder="Cuéntenos su proyecto…"></textarea></div>
+      <div class="form-foot"><button class="btn btn-fill submit-btn" onclick="handleSubmit(this)">Enviar mensaje <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="form-note">Respuesta en &lt; 48 h</span></div>
+    </div></div>
+  </section>
+
+  <footer class="footer"><a href="#" class="footer-logo">Jaque<b>m</b>atte</a><div class="footer-links"><a href="#nosotros">Nosotros</a><a href="#servicios">Servicios</a><a href="#equipo">Equipo</a><a href="#contacto">Contacto</a><a href="https://jaquematte.com/politica-de-privacidad-tratamiento-y-proteccion-de-datos-personales/" target="_blank">Privacidad</a></div><span class="footer-copy">© 2026 Jaquematte LATAM</span></footer>
 </div>
-
-<!-- STATS -->
-<div class="stats reveal">
-  <div class="stat"><div class="stat-num">22<sup>años</sup></div><div class="stat-label">De experiencia regional</div></div>
-  <div class="stat"><div class="stat-num">15<sup>+</sup></div><div class="stat-label">Países con presencia</div></div>
-  <div class="stat"><div class="stat-num">70<sup>%</sup></div><div class="stat-label">Clientes +5 años</div></div>
-  <div class="stat"><div class="stat-num">12<sup>+</sup></div><div class="stat-label">Mercados activos</div></div>
-</div>
-
-<!-- SERVICES -->
-<section class="services reveal" id="servicios">
-  <div class="sh">
-    <div class="sh-left">
-      <div class="sh-tag">Lo que hacemos</div>
-      <h2 class="sh-title">Nuestros<br><i>Servicios</i></h2>
-    </div>
-    <div class="sh-num">04</div>
-  </div>
-  <div class="services-grid">
-    <div class="svc">
-      <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=75" alt="Convenciones" loading="lazy"
-           onerror="this.src='https://pidamos.com/wp-content/uploads/2022/10/convenciones-2-1.jpeg'">
-      <div class="svc-overlay"></div>
-      <div class="svc-info"><div class="svc-n">01</div><div class="svc-name">Convenciones</div></div>
-    </div>
-    <div class="svc">
-      <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=75" alt="Stands" loading="lazy"
-           onerror="this.src='https://pidamos.com/wp-content/uploads/2022/09/6a-3.png'">
-      <div class="svc-overlay"></div>
-      <div class="svc-info"><div class="svc-n">02</div><div class="svc-name">Stands y Exhibición</div></div>
-    </div>
-    <div class="svc">
-      <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=75" alt="Eventos" loading="lazy"
-           onerror="this.src='https://pidamos.com/wp-content/uploads/2022/09/5.png'">
-      <div class="svc-overlay"></div>
-      <div class="svc-info"><div class="svc-n">03</div><div class="svc-name">Eventos Corporativos</div></div>
-    </div>
-    <div class="svc">
-      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75" alt="Activaciones" loading="lazy"
-           onerror="this.src='https://pidamos.com/wp-content/uploads/2022/09/1.png'">
-      <div class="svc-overlay"></div>
-      <div class="svc-info"><div class="svc-n">04</div><div class="svc-name">Activaciones de Marca</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- CLIENTS -->
-<section class="clients reveal" id="clientes">
-  <div class="clients-header">
-    <div class="sh-tag">Quiénes confían en nosotros</div>
-    <h2 class="sh-title" style="font-size:clamp(26px,7vw,44px); margin-top:6px;">Clientes que <i>permanecen</i></h2>
-  </div>
-  <div class="clients-marquee">
-    <div class="clients-track">
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/71.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/72.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/60.jpg" alt=""></div>
-      <div class="clogo"><img src="https://pidamos.com/wp-content/uploads/2020/07/55.jpg" alt=""></div>
-      <div class="clogo"><img src="https://pidamos.com/wp-content/uploads/2020/07/53.jpg" alt=""></div>
-      <div class="clogo"><img src="https://pidamos.com/wp-content/uploads/2020/07/52.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/70.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/68.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/12.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/67.jpg" alt=""></div>
-      <!-- duplicate -->
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/71.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/72.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/60.jpg" alt=""></div>
-      <div class="clogo"><img src="https://pidamos.com/wp-content/uploads/2020/07/55.jpg" alt=""></div>
-      <div class="clogo"><img src="https://pidamos.com/wp-content/uploads/2020/07/53.jpg" alt=""></div>
-      <div class="clogo"><img src="https://pidamos.com/wp-content/uploads/2020/07/52.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/70.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/68.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/12.jpg" alt=""></div>
-      <div class="clogo"><img src="https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/67.jpg" alt=""></div>
-    </div>
-  </div>
-</section>
-
-<!-- COVERAGE -->
-<section class="coverage reveal" id="cobertura">
-  <div class="sh">
-    <div class="sh-left">
-      <div class="sh-tag">Cobertura regional</div>
-      <h2 class="sh-title">Donde<br><i>estamos</i></h2>
-    </div>
-    <div class="sh-num">07</div>
-  </div>
-  <div class="countries">
-    <div class="ctry">
-      <img src="https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=500&q=75" alt="México" loading="lazy"
-           onerror="this.src='https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/mexico2.jpg'">
-      <div class="ctry-overlay"></div>
-      <div class="ctry-info">
-        <div class="ctry-name">México</div>
-        <div class="ctry-detail">Av. Homero 229 Polanco, CDMX</div>
-        <div class="ctry-bar"></div>
-      </div>
-    </div>
-    <div class="ctry">
-      <img src="https://images.unsplash.com/photo-1536708880921-03a9306ec47d?w=500&q=75" alt="Panamá" loading="lazy"
-           onerror="this.src='https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/ciudadpanama.jpg'">
-      <div class="ctry-overlay"></div>
-      <div class="ctry-info">
-        <div class="ctry-name">Panamá</div>
-        <div class="ctry-detail">Financial Park, Costa del Este</div>
-        <div class="ctry-bar"></div>
-      </div>
-    </div>
-    <div class="ctry">
-      <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=500&q=75" alt="Colombia" loading="lazy"
-           onerror="this.src='https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/bogota.jpg'">
-      <div class="ctry-overlay"></div>
-      <div class="ctry-info">
-        <div class="ctry-name">Colombia</div>
-        <div class="ctry-detail">Cra. 18 No. 93-25, of. 304, Bogotá</div>
-        <div class="ctry-bar"></div>
-      </div>
-    </div>
-    <div class="ctry">
-      <img src="https://images.unsplash.com/photo-1496421895977-954af2e5c0e8?w=500&q=75" alt="Ecuador" loading="lazy"
-           onerror="this.src='https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/ciudadquito.jpg'">
-      <div class="ctry-overlay"></div>
-      <div class="ctry-info">
-        <div class="ctry-name">Ecuador</div>
-        <div class="ctry-detail">contacto@pidamos.com</div>
-        <div class="ctry-bar"></div>
-      </div>
-    </div>
-    <div class="ctry">
-      <img src="https://images.unsplash.com/photo-1569880153113-76161c7dec63?w=500&q=75" alt="Costa Rica" loading="lazy"
-           onerror="this.src='https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/cr.jpg'">
-      <div class="ctry-overlay"></div>
-      <div class="ctry-info">
-        <div class="ctry-name">Costa Rica</div>
-        <div class="ctry-detail">contacto@pidamos.com</div>
-        <div class="ctry-bar"></div>
-      </div>
-    </div>
-    <div class="ctry">
-      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=75" alt="Chile" loading="lazy"
-           onerror="this.src='https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/cuile.jpg'">
-      <div class="ctry-overlay"></div>
-      <div class="ctry-info">
-        <div class="ctry-name">Chile</div>
-        <div class="ctry-detail">contacto@pidamos.com</div>
-        <div class="ctry-bar"></div>
-      </div>
-    </div>
-    <div class="ctry">
-      <img src="https://images.unsplash.com/photo-1504700610630-ac6aba3536d3?w=500&q=75" alt="Rep. Dominicana" loading="lazy"
-           onerror="this.src='https://housestudiomarketing.com/pidamos/wp-content/uploads/2022/06/rd.jpg'">
-      <div class="ctry-overlay"></div>
-      <div class="ctry-info">
-        <div class="ctry-name">Rep. Dominicana</div>
-        <div class="ctry-detail">contacto@pidamos.com</div>
-        <div class="ctry-bar"></div>
-      </div>
-    </div>
-    <div class="ctry-more">
-      <div class="ctry-more-num">+5</div>
-      <div class="ctry-more-tag">más países</div>
-      <div class="ctry-more-sub">en expansión</div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact reveal" id="contacto">
-  <div class="contact-dark">
-    <div>
-      <p class="contact-tag">Hablemos de su proyecto</p>
-      <h2 class="contact-title">Su próximo<br>gran<br><i>movimiento.</i></h2>
-      <p class="contact-sub">Listos en más de 12 países. Cuéntenos su proyecto y en menos de 48 horas tendrá una propuesta.</p>
-    </div>
-    <div class="contact-meta">
-      <a href="tel:+57">Teléfono (+57) contacto directo</a>
-      <a href="mailto:contacto@pidamos.com">contacto@pidamos.com</a>
-      <a href="https://wa.me/57" target="_blank">WhatsApp disponible 24/7</a>
-    </div>
-  </div>
-  <div class="contact-form-wrap">
-    <div class="form">
-      <div class="fgroup">
-        <label>Nombre completo</label>
-        <input type="text" placeholder="Su nombre y empresa">
-      </div>
-      <div class="fgroup">
-        <label>Correo electrónico</label>
-        <input type="email" placeholder="correo@empresa.com">
-      </div>
-      <div class="fgroup">
-        <label>País / Ciudad</label>
-        <input type="text" placeholder="¿Desde dónde nos escribe?">
-      </div>
-      <div class="fgroup">
-        <label>Mensaje</label>
-        <textarea placeholder="Cuéntenos su proyecto…"></textarea>
-      </div>
-      <div class="form-foot">
-        <button class="btn btn-fill" id="submitBtn">
-          Enviar mensaje
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-            <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <span class="form-note">Respuesta en &lt; 48 h</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <a href="#" class="footer-logo">Pid<b>a</b>mos</a>
-  <div class="footer-links">
-    <a href="#nosotros">Nosotros</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#clientes">Clientes</a>
-    <a href="#contacto">Contacto</a>
-  </div>
-  <span class="footer-copy">© 2026 Pidamos Marketing</span>
-</footer>
 
 <script>
-  // nav scroll shadow
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30), {passive:true});
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30),{passive:true});
+const ham=document.getElementById('ham'),drawer=document.getElementById('drawer');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');drawer.classList.toggle('open');});
+function closeMenu(){ham.classList.remove('open');drawer.classList.remove('open');}
+document.addEventListener('click',e=>{if(!nav.contains(e.target)&&!drawer.contains(e.target))closeMenu();});
 
-  // hamburger
-  const ham = document.getElementById('ham');
-  const drawer = document.getElementById('drawer');
-  ham.addEventListener('click', () => {
-    ham.classList.toggle('open');
-    drawer.classList.toggle('open');
-  });
-  function closeMenu() {
-    ham.classList.remove('open');
-    drawer.classList.remove('open');
-  }
-  // close drawer on outside click
-  document.addEventListener('click', e => {
-    if (!nav.contains(e.target) && !drawer.contains(e.target)) closeMenu();
-  });
+function switchBrand(b){
+  document.body.className='brand-'+b;
+  document.getElementById('page-a').classList.toggle('active',b==='a');
+  document.getElementById('page-b').classList.toggle('active',b==='b');
+  document.getElementById('btnA').classList.toggle('active',b==='a');
+  document.getElementById('btnB').classList.toggle('active',b==='b');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
-  // scroll reveal
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // form submit
-  document.getElementById('submitBtn').addEventListener('click', function() {
-    this.textContent = '✓  Enviado';
-    this.classList.add('sent');
-    this.disabled = true;
-    setTimeout(() => {
-      this.innerHTML = 'Enviar mensaje <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      this.classList.remove('sent');
-      this.disabled = false;
-    }, 3500);
-  });
+function handleSubmit(btn){
+  btn.innerHTML='✓  Enviado';btn.classList.add('sent');btn.disabled=true;
+  setTimeout(()=>{
+    btn.innerHTML='Enviar mensaje <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    btn.classList.remove('sent');btn.disabled=false;
+  },3500);
+}
 </script>
 </body>
 </html>
