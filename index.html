@@ -49,17 +49,49 @@ body.brand-b .nav{background:rgba(240,240,248,.97);}
 .nav-cta{display:none;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px;white-space:nowrap;transition:color .2s;}
 .nav-cta:hover{color:var(--accent);}
 
-.nav-hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;justify-self:end;}
-.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:transform .25s,opacity .25s;}
+.nav-hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;justify-self:end;z-index:201;}
+.nav-hamburger span{display:block;width:24px;height:1.5px;background:var(--ink);transition:transform .3s,opacity .2s,background .5s;}
 .nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
 .nav-hamburger.open span:nth-child(2){opacity:0;}
 .nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
 
-.nav-drawer{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:199;background:rgba(245,242,236,.98);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);flex-direction:column;padding:24px 20px 28px;gap:4px;}
-body.brand-b .nav-drawer{background:rgba(240,240,248,.98);}
+/* drawer — full height overlay on mobile */
+.nav-drawer{
+  display:none;
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  z-index:200;
+  flex-direction:column;
+  justify-content:center;
+  padding:calc(var(--nav-h) + 24px) 32px 40px;
+  gap:0;
+  /* Pidamos: warm paper */
+  background:#f5f2ec;
+}
+/* Jaquematte: deep navy */
+body.brand-b .nav-drawer{ background:#0a0a24; }
+
 .nav-drawer.open{display:flex;}
-.nav-drawer a{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:500;padding:11px 0;border-bottom:1px solid var(--line);transition:color .2s;}
-.nav-drawer a:last-child{border-bottom:none;color:var(--ink);}
+
+/* brand A drawer links */
+.nav-drawer a{
+  font-family:var(--serif);
+  font-size:clamp(28px,8vw,42px);
+  font-weight:300;
+  letter-spacing:-.01em;
+  color:#0d0d0b;
+  text-decoration:none;
+  padding:10px 0;
+  border-bottom:1px solid rgba(13,13,11,.1);
+  line-height:1.1;
+  transition:color .2s, padding-left .2s;
+}
+.nav-drawer a:hover{ color:#c8a96e; padding-left:8px; }
+.nav-drawer a:last-child{ border-bottom:none; font-style:italic; color:#c8a96e; }
+
+/* brand B drawer links — override colors */
+body.brand-b .nav-drawer a{ color:rgba(240,240,248,.7); border-bottom-color:rgba(240,240,248,.08); }
+body.brand-b .nav-drawer a:hover{ color:#f0f0f8; }
+body.brand-b .nav-drawer a:last-child{ color:#4f46e5; }
 
 /* ── BRAND PAGES ── */
 .brand-page{display:none;}
@@ -271,6 +303,10 @@ body.brand-b .member-overlay{background:linear-gradient(to top,rgba(10,10,20,.85
 .form-note{font-size:10.5px;color:var(--muted);}
 .submit-btn{background:var(--ink);transition:background .3s;}
 .submit-btn.sent{background:#4a7c59!important;}
+.contact-meta-link{font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;transition:color .2s;display:block;padding:2px 0;}
+.contact-meta-link:hover{color:var(--accent);}
+.carea{cursor:pointer;}
+
 
 /* ── FOOTER ── */
 .footer{border-top:1px solid var(--line);padding:28px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;}
@@ -356,16 +392,16 @@ body.brand-b .member-overlay{background:linear-gradient(to top,rgba(10,10,20,.85
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <a href="#contacto" class="nav-cta">Hablemos →</a>
-  <button class="nav-hamburger" id="ham"><span></span><span></span><span></span></button>
+  <button class="nav-hamburger" id="ham" aria-label="Menú"><span></span><span></span><span></span></button>
 </nav>
 
 <div class="nav-drawer" id="drawer">
-  <a href="#nosotros" onclick="closeMenu()">Nosotros</a>
+  <a href="#nosotros"  onclick="closeMenu()">Nosotros</a>
   <a href="#servicios" onclick="closeMenu()">Servicios</a>
-  <a href="#clientes" onclick="closeMenu()">Clientes</a>
-  <a href="#equipo" onclick="closeMenu()">Equipo</a>
+  <a href="#clientes"  onclick="closeMenu()">Clientes</a>
+  <a href="#equipo"    onclick="closeMenu()">Equipo</a>
   <a href="#cobertura" onclick="closeMenu()">Cobertura</a>
-  <a href="#contacto" onclick="closeMenu()">Hablemos →</a>
+  <a href="#contacto"  onclick="closeMenu()">Hablemos →</a>
 </div>
 
 <!-- ══ BRAND A — PIDAMOS ══ -->
@@ -494,56 +530,42 @@ body.brand-b .member-overlay{background:linear-gradient(to top,rgba(10,10,20,.85
       </div>
       <div class="contact-meta">
         <a href="tel:+57">Teléfono (+57) contacto directo</a>
-        <a href="mailto:contacto@pidamos.com">contacto@pidamos.com</a>
+        <span class="contact-meta-link" onclick="window.location.href=['ma','il','to:conta','cto@pida','mos.com'].join('')">— contacto&#64;pidamos.com</span>
         <a href="https://wa.me/57" target="_blank">WhatsApp 24/7</a>
       </div>
       <div class="contact-divider"></div>
       <p class="contact-areas-label">Contacto directo por área</p>
       <div class="contact-areas">
-        <a href="mailto:direccion@pidamos.com?subject=Consulta%20%E2%80%94%20Direcci%C3%B3n" class="carea">
-          <div class="carea-left">
-            <span class="carea-role">Dirección</span>
-            <span class="carea-name">Yuleika Zambrano</span>
-            <span class="carea-email">direccion@pidamos.com</span>
-          </div>
+        <div class="carea" onclick="openMailArea('dir','ecc','ion','@','pid','amos','.com','Consulta - Direccion')">
+          <div class="carea-left"><span class="carea-role">Dirección</span><span class="carea-name">Yuleika Zambrano</span><span class="carea-email">direccion&#64;pidamos.com</span></div>
           <span class="carea-arrow">→</span>
-        </a>
-        <a href="mailto:comercial@pidamos.com?subject=Cotizaci%C3%B3n%20%E2%80%94%20%C3%81rea%20Comercial" class="carea">
-          <div class="carea-left">
-            <span class="carea-role">Comercial</span>
-            <span class="carea-name">Cuentas y Nuevos Negocios</span>
-            <span class="carea-email">comercial@pidamos.com</span>
-          </div>
+        </div>
+        <div class="carea" onclick="openMailArea('com','erc','ial','@','pid','amos','.com','Cotizacion - Comercial')">
+          <div class="carea-left"><span class="carea-role">Comercial</span><span class="carea-name">Cuentas y Nuevos Negocios</span><span class="carea-email">comercial&#64;pidamos.com</span></div>
           <span class="carea-arrow">→</span>
-        </a>
-        <a href="mailto:produccion@pidamos.com?subject=Consulta%20%E2%80%94%20Producci%C3%B3n" class="carea">
-          <div class="carea-left">
-            <span class="carea-role">Producción</span>
-            <span class="carea-name">Logística y Escenografía</span>
-            <span class="carea-email">produccion@pidamos.com</span>
-          </div>
+        </div>
+        <div class="carea" onclick="openMailArea('pro','duc','cion','@','pid','amos','.com','Consulta - Produccion')">
+          <div class="carea-left"><span class="carea-role">Producción</span><span class="carea-name">Logística y Escenografía</span><span class="carea-email">produccion&#64;pidamos.com</span></div>
           <span class="carea-arrow">→</span>
-        </a>
-        <a href="mailto:admin@pidamos.com?subject=Consulta%20Administrativa" class="carea">
-          <div class="carea-left">
-            <span class="carea-role">Administración</span>
-            <span class="carea-name">Facturación y Contratos</span>
-            <span class="carea-email">admin@pidamos.com</span>
-          </div>
+        </div>
+        <div class="carea" onclick="openMailArea('adm','in','@','pid','amos','.com','Consulta Administrativa')">
+          <div class="carea-left"><span class="carea-role">Administración</span><span class="carea-name">Facturación y Contratos</span><span class="carea-email">admin&#64;pidamos.com</span></div>
           <span class="carea-arrow">→</span>
-        </a>
+        </div>
       </div>
     </div>
     <div class="contact-form-wrap"><div class="form">
       <div class="fgroup"><label>Nombre completo</label><input type="text" placeholder="Su nombre y empresa"></div>
-      <div class="fgroup"><label>Correo electrónico</label><input type="email" placeholder="correo@empresa.com"></div>
-      <div class="fgroup"><label>País / Ciudad</label><input type="text" placeholder="¿Desde dónde nos escribe?"></div>
-      <div class="fgroup"><label>Mensaje</label><textarea placeholder="Cuéntenos su proyecto…"></textarea></div>
-      <div class="form-foot"><button class="btn btn-fill submit-btn" onclick="handleSubmit(this)">Enviar mensaje <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="form-note">Respuesta en &lt; 48 h</span></div>
+      <div class="fgroup"><label>Correo electrónico</label><input type="email" placeholder="correo&#64;empresa.com"></div>
+      <div class="fgroup"><label>País / Ciudad</label><input type="text" placeholder="Desde dónde nos escribe"></div>
+      <div class="fgroup"><label>Mensaje</label><textarea placeholder="Cuéntenos su proyecto"></textarea></div>
+      <div class="form-foot"><button class="btn btn-fill submit-btn" onclick="handleSubmit(this)">Enviar mensaje <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="form-note">Respuesta en menos de 48 h</span></div>
     </div></div>
   </section>
 
-  <footer class="footer"><a href="#" class="footer-logo">Pid<b>a</b>mos</a><div class="footer-links"><a href="#nosotros">Nosotros</a><a href="#servicios">Servicios</a><a href="#equipo">Equipo</a><a href="#contacto">Contacto</a></div><span class="footer-copy">© 2026 Pidamos Marketing</span></footer>
+  <footer class="footer"><a href="#" class="footer-logo">Pid<b>a</b>mos</a><div class="footer-links"><a href="#nosotros">Nosotros</a><a href="#servicios">Servicios</a><a href="#equipo">Equipo</a><a href="#contacto">Contacto</a></div><span class="footer-copy">&#169; 2026 Pidamos Marketing</span></footer>
+</div>
+
 </div>
 
 <!-- ══ BRAND B — JAQUEMATTE ══ -->
@@ -649,14 +671,14 @@ body.brand-b .member-overlay{background:linear-gradient(to top,rgba(10,10,20,.85
   <section class="coverage reveal" id="cobertura">
     <div class="sh"><div class="sh-left"><div class="sh-tag">Cobertura regional</div><h2 class="sh-title">Donde<br><i>estamos</i></h2></div><div class="sh-num">09</div></div>
     <div class="countries cg4">
-      <div class="ctry"><div class="ctry-photo cp-mx"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">México</div><div class="ctry-detail">(+52 1) 55 5254 2235<br>(+52 1) 55 8035 6104<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
-      <div class="ctry"><div class="ctry-photo cp-pa"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Panamá</div><div class="ctry-detail">(+507) 2098651 / 52<br>(+507) 6310-6233<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
-      <div class="ctry"><div class="ctry-photo cp-cr"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Costa Rica</div><div class="ctry-detail">(+506) 8993 6675<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
-      <div class="ctry"><div class="ctry-photo cp-us"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Estados Unidos</div><div class="ctry-detail">(+521) 55 8035 6104<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
-      <div class="ctry"><div class="ctry-photo cp-ec"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Ecuador</div><div class="ctry-detail">Av. América #39-285 y Vozandes<br>(+593) 99 766 8197<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
-      <div class="ctry"><div class="ctry-photo cp-co"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Colombia</div><div class="ctry-detail">Cra. 18 No. 93-25, Edificio Inverpor<br>(+57) 312 434 3926<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
-      <div class="ctry"><div class="ctry-photo cp-rd"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Rep. Dominicana</div><div class="ctry-detail">(+521) 55 8035 6104<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
-      <div class="ctry"><div class="ctry-photo cp-cl"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Chile</div><div class="ctry-detail">(+521) 55 8035 6104<br>contacto@jaquematte.com</div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-mx"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">México</div><div class="ctry-detail">(+52 1) 55 5254 2235<br>(+52 1) 55 8035 6104<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c1a2aeafb5a0a2b5ae81aba0b0b4a4aca0b5b5a4efa2aeac">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-pa"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Panamá</div><div class="ctry-detail">(+507) 2098651 / 52<br>(+507) 6310-6233<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="10737f7e647173647f507a716165757d716464753e737f7d">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-cr"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Costa Rica</div><div class="ctry-detail">(+506) 8993 6675<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e88b87869c898b9c87a88289999d8d85899c9c8dc68b8785">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-us"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Estados Unidos</div><div class="ctry-detail">(+521) 55 8035 6104<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="492a26273d282a3d26092328383c2c24283d3d2c672a2624">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-ec"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Ecuador</div><div class="ctry-detail">Av. América #39-285 y Vozandes<br>(+593) 99 766 8197<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="50333f3e243133243f103a312125353d312424357e333f3d">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-co"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Colombia</div><div class="ctry-detail">Cra. 18 No. 93-25, Edificio Inverpor<br>(+57) 312 434 3926<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="65060a0b110406110a250f0414100008041111004b060a08">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-rd"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Rep. Dominicana</div><div class="ctry-detail">(+521) 55 8035 6104<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec8f8382988d8f9883ac868d9d9989818d989889c28f8381">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
+      <div class="ctry"><div class="ctry-photo cp-cl"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Chile</div><div class="ctry-detail">(+521) 55 8035 6104<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="670408091306041308270d061612020a061313024904080a">[email&#160;protected]</a></div><div class="ctry-bar"></div></div></div>
       <div class="ctry"><div class="ctry-photo cp-latam"></div><div class="ctry-overlay"></div><div class="ctry-info"><div class="ctry-name">Centroamérica</div><div class="ctry-detail">Guatemala · Nicaragua · El Salvador<br>Honduras · Puerto Rico · Uruguay</div><div class="ctry-bar"></div></div></div>
       <div class="ctry-more"><div class="ctry-more-num">12<span style="font-size:.5em;color:var(--accent);font-style:italic;">+</span></div><div class="ctry-more-tag">mercados</div><div class="ctry-more-sub">en Latinoamérica</div></div>
     </div>
@@ -703,6 +725,7 @@ body.brand-b .member-overlay{background:linear-gradient(to top,rgba(10,10,20,.85
     </div>
   </div>
 
+
   <section class="contact reveal" id="contacto">
     <div class="contact-dark">
       <div>
@@ -713,65 +736,64 @@ body.brand-b .member-overlay{background:linear-gradient(to top,rgba(10,10,20,.85
       <div class="contact-meta">
         <a href="tel:+50763106233">Panamá: (+507) 6310-6233</a>
         <a href="tel:+50689936675">Costa Rica: (+506) 8993 6675</a>
-        <a href="mailto:contacto@jaquematte.com">contacto@jaquematte.com</a>
+        <span class="contact-meta-link" onclick="window.location.href=['ma','il','to:conta','cto@jaquem','atte.com'].join('')">— contacto&#64;jaquematte.com</span>
         <a href="https://wa.me/50763106233" target="_blank">WhatsApp 24/7</a>
       </div>
       <div class="contact-divider"></div>
       <p class="contact-areas-label">Contacto directo por área</p>
       <div class="contact-areas">
-        <a href="mailto:direccion@jaquematte.com?subject=Consulta%20%E2%80%94%20Direcci%C3%B3n" class="carea">
-          <div class="carea-left">
-            <span class="carea-role">Dirección</span>
-            <span class="carea-name">Yuleika Zambrano</span>
-            <span class="carea-email">direccion@jaquematte.com</span>
-          </div>
+        <div class="carea" onclick="openMailArea('dir','ecc','ion','@','jaquem','atte','.com','Consulta - Direccion')">
+          <div class="carea-left"><span class="carea-role">Dirección</span><span class="carea-name">Yuleika Zambrano</span><span class="carea-email">direccion&#64;jaquematte.com</span></div>
           <span class="carea-arrow">→</span>
-        </a>
-        <a href="mailto:comercial@jaquematte.com?subject=Cotizaci%C3%B3n%20%E2%80%94%20%C3%81rea%20Comercial" class="carea">
-          <div class="carea-left">
-            <span class="carea-role">Comercial</span>
-            <span class="carea-name">Cuentas y Nuevos Negocios</span>
-            <span class="carea-email">comercial@jaquematte.com</span>
-          </div>
+        </div>
+        <div class="carea" onclick="openMailArea('com','erc','ial','@','jaquem','atte','.com','Cotizacion - Comercial')">
+          <div class="carea-left"><span class="carea-role">Comercial</span><span class="carea-name">Cuentas y Nuevos Negocios</span><span class="carea-email">comercial&#64;jaquematte.com</span></div>
           <span class="carea-arrow">→</span>
-        </a>
-        <a href="mailto:produccion@jaquematte.com?subject=Consulta%20%E2%80%94%20Producci%C3%B3n" class="carea">
-          <div class="carea-left">
-            <span class="carea-role">Producción</span>
-            <span class="carea-name">Logística y Escenografía</span>
-            <span class="carea-email">produccion@jaquematte.com</span>
-          </div>
+        </div>
+        <div class="carea" onclick="openMailArea('pro','duc','cion','@','jaquem','atte','.com','Consulta - Produccion')">
+          <div class="carea-left"><span class="carea-role">Producción</span><span class="carea-name">Logística y Escenografía</span><span class="carea-email">produccion&#64;jaquematte.com</span></div>
           <span class="carea-arrow">→</span>
-        </a>
-        <a href="mailto:admin@jaquematte.com?subject=Consulta%20Administrativa" class="carea">
-          <div class="carea-left">
-            <span class="carea-role">Administración</span>
-            <span class="carea-name">Facturación y Contratos</span>
-            <span class="carea-email">admin@jaquematte.com</span>
-          </div>
+        </div>
+        <div class="carea" onclick="openMailArea('adm','in','@','jaquem','atte','.com','Consulta Administrativa')">
+          <div class="carea-left"><span class="carea-role">Administración</span><span class="carea-name">Facturación y Contratos</span><span class="carea-email">admin&#64;jaquematte.com</span></div>
           <span class="carea-arrow">→</span>
-        </a>
+        </div>
       </div>
     </div>
     <div class="contact-form-wrap"><div class="form">
       <div class="fgroup"><label>Nombre completo</label><input type="text" placeholder="Su nombre y empresa"></div>
-      <div class="fgroup"><label>Correo electrónico</label><input type="email" placeholder="correo@empresa.com"></div>
-      <div class="fgroup"><label>País / Ciudad</label><input type="text" placeholder="¿Desde dónde nos escribe?"></div>
-      <div class="fgroup"><label>Mensaje</label><textarea placeholder="Cuéntenos su proyecto…"></textarea></div>
-      <div class="form-foot"><button class="btn btn-fill submit-btn" onclick="handleSubmit(this)">Enviar mensaje <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="form-note">Respuesta en &lt; 48 h</span></div>
+      <div class="fgroup"><label>Correo electrónico</label><input type="email" placeholder="correo&#64;empresa.com"></div>
+      <div class="fgroup"><label>País / Ciudad</label><input type="text" placeholder="Desde dónde nos escribe"></div>
+      <div class="fgroup"><label>Mensaje</label><textarea placeholder="Cuéntenos su proyecto"></textarea></div>
+      <div class="form-foot"><button class="btn btn-fill submit-btn" onclick="handleSubmit(this)">Enviar mensaje <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="form-note">Respuesta en menos de 48 h</span></div>
     </div></div>
   </section>
 
-  <footer class="footer"><a href="#" class="footer-logo">Jaque<b>m</b>atte</a><div class="footer-links"><a href="#nosotros">Nosotros</a><a href="#servicios">Servicios</a><a href="#equipo">Equipo</a><a href="#contacto">Contacto</a><a href="https://jaquematte.com/politica-de-privacidad-tratamiento-y-proteccion-de-datos-personales/" target="_blank">Privacidad</a></div><span class="footer-copy">© 2026 Jaquematte LATAM</span></footer>
+  <footer class="footer"><a href="#" class="footer-logo">Jaque<b>m</b>atte</a><div class="footer-links"><a href="#nosotros">Nosotros</a><a href="#servicios">Servicios</a><a href="#equipo">Equipo</a><a href="#contacto">Contacto</a><a href="https://jaquematte.com/politica-de-privacidad-tratamiento-y-proteccion-de-datos-personales/" target="_blank">Privacidad</a></div><span class="footer-copy">&#169; 2026 Jaquematte LATAM</span></footer>
 </div>
 
 <script>
 const nav=document.getElementById('nav');
+const ham=document.getElementById('ham');
+const drawer=document.getElementById('drawer');
+
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30),{passive:true});
-const ham=document.getElementById('ham'),drawer=document.getElementById('drawer');
-ham.addEventListener('click',()=>{ham.classList.toggle('open');drawer.classList.toggle('open');});
-function closeMenu(){ham.classList.remove('open');drawer.classList.remove('open');}
-document.addEventListener('click',e=>{if(!nav.contains(e.target)&&!drawer.contains(e.target))closeMenu();});
+
+ham.addEventListener('click',()=>{
+  const isOpen=ham.classList.toggle('open');
+  drawer.classList.toggle('open',isOpen);
+  document.body.style.overflow=isOpen?'hidden':'';
+});
+
+function closeMenu(){
+  ham.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.addEventListener('click',e=>{
+  if(drawer.classList.contains('open')&&!drawer.contains(e.target)&&!ham.contains(e.target))closeMenu();
+});
 
 function switchBrand(b){
   document.body.className='brand-'+b;
@@ -779,11 +801,19 @@ function switchBrand(b){
   document.getElementById('page-b').classList.toggle('active',b==='b');
   document.getElementById('btnA').classList.toggle('active',b==='a');
   document.getElementById('btnB').classList.toggle('active',b==='b');
+  closeMenu();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+function openMailArea(){
+  var parts=[].slice.call(arguments);
+  var subj=parts.pop();
+  var addr=parts.join('');
+  window.location.href='ma'+'il'+'to:'+addr+'?subject='+encodeURIComponent(subj);
+}
+
 function handleSubmit(btn){
-  btn.innerHTML='✓  Enviado';btn.classList.add('sent');btn.disabled=true;
+  btn.innerHTML='Enviado ✓';btn.classList.add('sent');btn.disabled=true;
   setTimeout(()=>{
     btn.innerHTML='Enviar mensaje <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     btn.classList.remove('sent');btn.disabled=false;
