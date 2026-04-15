@@ -384,14 +384,14 @@ body.brand-b .member-overlay{background:linear-gradient(to top,rgba(10,10,20,.85
     <button class="brand-btn" id="btnB" onclick="switchBrand('b')">Jaquematte</button>
   </div>
   <ul class="nav-links">
-    <li><a href="#nosotros">Nosotros</a></li>
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#clientes">Clientes</a></li>
-    <li><a href="#equipo">Equipo</a></li>
-    <li><a href="#cobertura">Cobertura</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a onclick="navTo('nosotros')" style="cursor:pointer">Nosotros</a></li>
+    <li><a onclick="navTo('servicios')" style="cursor:pointer">Servicios</a></li>
+    <li><a onclick="navTo('clientes')" style="cursor:pointer">Clientes</a></li>
+    <li><a onclick="navTo('equipo')" style="cursor:pointer">Equipo</a></li>
+    <li><a onclick="navTo('cobertura')" style="cursor:pointer">Cobertura</a></li>
+    <li><a onclick="navTo('contacto')" style="cursor:pointer">Contacto</a></li>
   </ul>
-  <a href="#contacto" class="nav-cta">Hablemos →</a>
+  <a onclick="navTo('contacto')" class="nav-cta" style="cursor:pointer">Hablemos →</a>
   <button class="nav-hamburger" id="ham" aria-label="Menú"><span></span><span></span><span></span></button>
 </nav>
 
@@ -492,7 +492,7 @@ body.brand-b .member-overlay{background:linear-gradient(to top,rgba(10,10,20,.85
     <div class="team-grid">
       <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/10/jaque222.jpg" alt="Yuleika Zambrano" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Yuleika Zambrano</div><div class="member-role">Dirección General</div></div></div>
       <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Andrea-Mayoral-1.jpg" alt="Andrea Mayoral" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Andrea Mayoral</div><div class="member-role">Gestión de Proyectos</div></div></div>
-      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Andr%C3%A9s-Silva.jpg" alt="Andrés Silva" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Andrés Silva</div><div class="member-role">Producción</div></div></div>
+      <div class="member"><div class="member-photo"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%231a2744'/%3E%3Cellipse cx='200' cy='190' rx='75' ry='80' fill='%232d4a8a' opacity='.8'/%3E%3Cellipse cx='200' cy='420' rx='140' ry='100' fill='%232d4a8a' opacity='.6'/%3E%3Ctext x='200' y='210' text-anchor='middle' font-family='Georgia,serif' font-size='72' font-weight='300' fill='rgba(245,242,236,0.5)'%3EAS%3C/text%3E%3C/svg%3E" alt="Andrés Silva" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Andrés Silva</div><div class="member-role">Producción</div></div></div>
       <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Armando-Manrique.jpg" alt="Armando Manrique" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Armando Manrique</div><div class="member-role">Operaciones</div></div></div>
       <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Camilo-Loboguerrero-2-scaled.jpg" alt="Camilo Lobo Guerrero" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Camilo Lobo Guerrero</div><div class="member-role">Estrategia</div></div></div>
       <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Douglas-Torrealba-2-scaled.jpg" alt="Douglas Torrealba" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Douglas Torrealba</div><div class="member-role">Cuentas Regionales</div></div></div>
@@ -652,7 +652,7 @@ body.brand-b .member-overlay{background:linear-gradient(to top,rgba(10,10,20,.85
     <div class="team-grid">
       <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/10/jaque222.jpg" alt="Yuleika Zambrano" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Yuleika Zambrano</div><div class="member-role">Dirección General</div></div></div>
       <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Andrea-Mayoral-1.jpg" alt="Andrea Mayoral" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Andrea Mayoral</div><div class="member-role">Gestión de Proyectos</div></div></div>
-      <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Andr%C3%A9s-Silva.jpg" alt="Andrés Silva" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Andrés Silva</div><div class="member-role">Producción</div></div></div>
+      <div class="member"><div class="member-photo"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%231a2744'/%3E%3Cellipse cx='200' cy='190' rx='75' ry='80' fill='%232d4a8a' opacity='.8'/%3E%3Cellipse cx='200' cy='420' rx='140' ry='100' fill='%232d4a8a' opacity='.6'/%3E%3Ctext x='200' y='210' text-anchor='middle' font-family='Georgia,serif' font-size='72' font-weight='300' fill='rgba(245,242,236,0.5)'%3EAS%3C/text%3E%3C/svg%3E" alt="Andrés Silva" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Andrés Silva</div><div class="member-role">Producción</div></div></div>
       <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Armando-Manrique.jpg" alt="Armando Manrique" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Armando Manrique</div><div class="member-role">Operaciones</div></div></div>
       <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Camilo-Loboguerrero-2-scaled.jpg" alt="Camilo Lobo Guerrero" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Camilo Lobo Guerrero</div><div class="member-role">Estrategia Regional</div></div></div>
       <div class="member"><div class="member-photo"><img src="https://jaquematte.com/wp-content/uploads/2022/07/Douglas-Torrealba-2-scaled.jpg" alt="Douglas Torrealba" loading="lazy"></div><div class="member-overlay"></div><div class="member-info"><div class="member-name">Douglas Torrealba</div><div class="member-role">Cuentas Regionales</div></div></div>
@@ -843,7 +843,7 @@ document.querySelectorAll('img').forEach(img => {
     if(encoded !== this.src){ this.src = encoded; return; }
     // Fallback: replace known problem filename
     if(this.src.includes('Andr')){
-      this.src='https://jaquematte.com/wp-content/uploads/2022/07/Andr%C3%A9s-Silva.jpg';
+      this.src='data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%231a2744'/%3E%3Cellipse cx='200' cy='190' rx='75' ry='80' fill='%232d4a8a' opacity='.8'/%3E%3Cellipse cx='200' cy='420' rx='140' ry='100' fill='%232d4a8a' opacity='.6'/%3E%3Ctext x='200' y='210' text-anchor='middle' font-family='Georgia,serif' font-size='72' font-weight='300' fill='rgba(245,242,236,0.5)'%3EAS%3C/text%3E%3C/svg%3E';
     }
   };
 });
